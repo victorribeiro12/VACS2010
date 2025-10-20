@@ -212,7 +212,7 @@ nav {
     height: var(--topbar-height);
     background-color: var(--color-sidebar-bg);
     display: flex;
-    justify-content: space-between; /* Ajustado para espaçar o logo e o perfil */
+    justify-content: space-between; /* Ajustado para espaçar o logo e o perfil */;
     align-items: center;
     padding: 0 20px;
     z-index: 1000; /* Garante que fique acima de tudo */

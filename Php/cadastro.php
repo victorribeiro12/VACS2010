@@ -1,4 +1,19 @@
+<?php
+// --- Inicia a sessão ---
+session_start();
 
+// --- Se o usuário já estiver logado, redireciona direto para o index ---
+if (isset($_SESSION['usuario_nome'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// --- Define o index.php como página inicial quando aberto no Laragon ---
+if (basename($_SERVER['PHP_SELF']) === 'index.php') {
+    header("Location: cadastro.php");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">

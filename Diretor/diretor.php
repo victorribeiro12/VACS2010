@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario_db = "root";
 $senha_db = "";
-$banco = "vacs1"; // Nome do seu banco de dados.
+$banco = "vacs"; // Nome do seu banco de dados.
 
 $conexao = new mysqli($servidor, $usuario_db, $senha_db, $banco);
 
@@ -10,7 +10,7 @@ $conexao = new mysqli($servidor, $usuario_db, $senha_db, $banco);
 $funcionarios_iniciais = [];
 
 // Verifica se a conexão foi bem-sucedida
-if ($conexao->connect_error) {
+if ($conn->connect_error) {
     // Se a conexão falhar, o array continuará vazio.
     // Em um ambiente real, seria bom registrar este erro em um log.
     // die("Erro de conexão: " . $conexao->connect_error); // Descomente apenas para depurar

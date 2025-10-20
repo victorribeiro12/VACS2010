@@ -1,15 +1,11 @@
 <?php
 session_start();
 
-// Se não estiver logado, redireciona para a página de login
-if (!isset($_SESSION['usuario_id'])) {
+// Se o usuário não estiver logado, redireciona para o login
+if (!isset($_SESSION['usuario_nome'])) {
     header("Location: login.php");
     exit();
 }
-
-// Dados do usuário logado
-$nome_usuario = $_SESSION['nome'] ?? 'Usuário';
-$tipo_usuario = $_SESSION['tipo_usuario'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -18,72 +14,147 @@ $tipo_usuario = $_SESSION['tipo_usuario'] ?? '';
     <meta charset="UTF-8">
     <title>Clínica Veterinária Solidária</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f9fc;
+            font-family: "Segoe UI", Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            background-color: #f4f6f8;
+            color: #333;
         }
         header {
             background-color: #4CAF50;
             color: white;
-            padding: 15px 20px;
+            padding: 15px 25px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-        .usuario {
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+        .perfil {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
-        .usuario img {
-            width: 40px;
-            height: 40px;
+        .perfil img {
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            margin-right: 10px;
         }
+        .perfil span {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .logout {
+            margin-left: 15px;
+            text-decoration: none;
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .logout:hover {
+            background-color: #c0392b;
+        }
+
         main {
-            padding: 30px 20px;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
             text-align: center;
         }
-        button.logout {
-            padding: 8px 15px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button.logout:hover {
-            background-color: #e60000;
-        }
-        h1 {
-            color: #333;
-        }
+
         p {
-            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h2>Clínica Veterinária Solidária</h2>
-    <div class="usuario">
-        <!-- Boneco de perfil genérico -->
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Perfil">
-        <span><?php echo htmlspecialchars($nome_usuario); ?></span>
-        <form action="logout.php" method="POST" style="display:inline;">
-            <button type="submit" class="logout">Logout</button>
-        </form>
+    <h1>🐾 Clínica Veterinária Solidária</h1>
+    <div class="perfil">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Perfil">
+        <span><?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></span>
+        <a class="logout" href="logout.php">Sair</a>
     </div>
 </header>
 
 <main>
-    <h1>Bem-vindo, <?php echo htmlspecialchars($nome_usuario); ?>!</h1>
-    <p>Você está logado como <strong><?php echo htmlspecialchars($tipo_usuario); ?></strong>.</p>
-    <p>Aqui você pode gerenciar atendimentos, cadastros de animais, voluntários e muito mais.</p>
+    <h2>Bem-vindo(a), <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</h2>
+    <p>
+        Nossa missão é oferecer atendimento veterinário solidário, priorizando o bem-estar animal e o cuidado responsável.
+        Aqui você pode participar de campanhas, acompanhar consultas, registrar animais e contribuir com a clínica.
+    </p>
+
+    <div class="cards">
+        <div class="card">
+            <h3>🐶 Consultas Solidárias</h3>
+            <p>Agende e acompanhe consultas realizadas por nossos veterinários voluntários.</p>
+        </div>
+        <div class="card">
+            <h3>🐱 Adoção Responsável</h3>
+            <p>Ajude animais a encontrarem um novo lar amoroso e seguro.</p>
+        </div>
+        <div class="card">
+            <h3>🩺 Equipe Veterinária</h3>
+            <p>Profissionais dedicados e apaixonados pelo cuidado animal.</p>
+        </div>
+        <div class="card">
+            <h3>💚 Voluntariado</h3>
+            <p>Contribua com nosso projeto e ajude a transformar vidas!</p>
+        </div>
+    </div>
 </main>
+
+<footer>
+    &copy; <?php echo date('Y'); ?> Clínica Veterinária Solidária | Desenvolvido com ❤️
+</footer>
 
 </body>
 </html>
