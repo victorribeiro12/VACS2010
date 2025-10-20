@@ -1,0 +1,482 @@
+.sidebar {
+  position: fixed; ;
+  top: 60px; /* mesma altura da topbar */
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background-color: #9dd9eb;
+  padding-top: 20px;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  
+}
+.sidebar img{
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #9dd9eb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+/* Garante que o container de perfil/botão use flex para alinhar os dois blocos */
+.direita-topbar {
+    display: flex; 
+    flex-direction: row; /* Coloca o link do perfil e o botão lado a lado */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px;
+    padding-left: 20px;
+    gap: 10px; /* Espaçamento entre o bloco do perfil e o botão */
+    
+}
+
+/* NOVO: Estilos para o Link de Perfil (<a>) */
+.profile-link {
+    display: flex; 
+    flex-direction: column; /* Faz a imagem ficar acima do nome */
+    align-items: center; /* Centraliza a imagem e o texto horizontalmente */
+    text-decoration: none;
+    color: #000; 
+}
+
+/* Estilos para a Imagem dentro do link */
+.profile-link img.perfil {
+    width: 30px; 
+    height: 30px;
+    margin-bottom: 2px; /* Espaço entre a imagem e o nome */
+}
+
+/* Estilos para o Nome dentro do link */
+.profile-link p {
+    color: rgb(0, 0, 0); 
+    font-size: 12px; /* Ajuste o tamanho da fonte para o nome */
+    margin: 0;
+}
+
+.left-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-right:20px;
+    margin-right: 1160px;
+}
+.perfil{
+    text-align: end;
+    font-size: 30px;
+    color: white;
+}
+
+.direita-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left:20px;
+}
+.sidebar ul{
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+}
+/* 1. Ajuste a classe principal da sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 60px);
+    background-color: #9dd9eb;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* MUDANÇA: Alinha o conteúdo no topo, não no centro */
+    justify-content: flex-start; /* Altera de 'center' para 'flex-start' */
+    
+    /* Adiciona um padding nas laterais, caso não tenha */
+    padding-left: 0; 
+    padding-right: 0;
+}
+
+/* 2. Ajuste o container dos links (<ul>) */
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* remove overflow: hidden; se não for necessário */
+}
+
+/* 3. Estilo dos itens da lista (li) */
+.sidebar ul li {
+    margin-bottom: 5px; /* Espaço entre os itens do menu */
+}
+
+/* 4. Estilo dos Links (<a>) - O novo visual */
+.sidebar ul li a {
+    display: flex; /* Essencial para alinhar ícone e texto */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px 20px; /* Mais padding para dar espaço */
+    text-decoration: none;
+    color: #385a64; /* Cor mais escura para o texto */
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* 5. Efeito ao passar o mouse */
+.sidebar ul li a:hover {
+    background-color: #e9e9e9; /* Cor mais clara ao passar o mouse */
+    border-radius: 18px; /* Bordas arredondadas (se quiser) */;
+}
+
+/* 6. Estilo para o item ATIVO (como o Dashboard) */
+.sidebar ul li a.active {
+    background-color: white; /* Fundo branco ou mais claro */
+    color: #000000; /* Texto mais escuro */
+    border-radius: 5px; /* Bordas arredondadas (se quiser) */
+    /* Adiciona a 'sombra' ou leve separação visual se necessário */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    margin: 0 10px; /* Afasta um pouco das bordas da sidebar */
+}
+
+/* 7. Ajuste dos Ícones */
+.sidebar img {
+    /* MUDANÇA: Mais padronizado para o layout flex */
+    height: 20px;
+    width: 20px;
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    padding: 0; /* Remove padding desnecessário */
+    vertical-align: middle; /* Mantém a imagem alinhada se o display flex falhar */
+}
+/* ================================================= */
+/* 0. RESET E VARIÁVEIS DE CORES E DIMENSÕES */
+/* ================================================= */
+:root {
+    /* Cores do Projeto */
+    --color-sidebar-bg: #9dd9eb;
+    --color-light-bg: #F5F5F5; 
+    --color-card-bg: #FFFFFF; 
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --color-border-light: #EEEEEE;
+    --color-active-blue: #2196F3;
+    --color-action-button-bg: #E3F2FD;
+    --color-success-green: #4CAF50; 
+    --color-sidebar-link: #385a64;
+
+    /* Dimensões Fixas */
+    --sidebar-width: 240px;
+    --topbar-height: 60px;
+}
+
+/* Reset básico para evitar margens e paddings indesejados */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CORREÇÃO CRÍTICA DO LAYOUT: Posiciona a MAIN corretamente */
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: var(--color-light-bg);
+    /* Cria o espaço para a topbar e sidebar, evitando que o conteúdo fique escondido */
+    padding-top: var(--topbar-height); 
+    padding-left: var(--sidebar-width); 
+    display: block; 
+    overflow-x: hidden; /* Evita a barra de rolagem horizontal desnecessária */
+}
+
+/* ================================================= */
+/* 1. TOPBAR (nav) - PARTE AZUL SUPERIOR */
+/* ================================================= */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--topbar-height);
+    background-color: var(--color-sidebar-bg);
+    display: flex;
+    justify-content: space-between; /* Ajustado para espaçar o logo e o perfil */
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000; /* Garante que fique acima de tudo */
+}
+
+.left-topbar {
+    display: flex;
+    align-items: center;
+    /* Ajustado: Não precisa de margin-right fixo se usar justify-content: space-between */
+}
+
+.direita-topbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px; 
+    padding: 10px 0; /* Ajustado o padding */
+}
+
+/* Estilos para o Link de Perfil (<a>) */
+.profile-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+}
+
+/* Estilos para a Imagem de Perfil */
+.profile-link img.perfil {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 2px;
+}
+
+/* Estilos para o Nome */
+.profile-link p {
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+    margin: 0;
+}
+
+/* ================================================= */
+/* 2. SIDEBAR - PARTE AZUL LATERAL */
+/* ================================================= */
+
+.sidebar {
+    position: fixed;
+    top: var(--topbar-height); 
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--topbar-height));
+    background-color: var(--color-sidebar-bg);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha o conteúdo no topo */
+    z-index: 999; 
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 5px;
+}
+
+/* Estilo dos Links */
+.sidebar ul li a {
+    display: flex; 
+    align-items: center; 
+    padding: 10px 20px; 
+    text-decoration: none;
+    color: var(--color-sidebar-link); 
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* Estilo do item ATIVO */
+.sidebar ul li a.active {
+    background-color: white; 
+    color: #000000; 
+    border-radius: 5px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    margin: 0 10px; 
+}
+
+/* Efeito ao passar o mouse */
+.sidebar ul li a:not(.active):hover {
+    background-color: #e9e9e9; 
+    border-radius: 18px;
+    margin: 0 10px; /* Adiciona margin-lateral para o efeito visual */
+}
+
+/* Ajuste dos Ícones dentro da Sidebar */
+.sidebar img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px; 
+    padding: 0; 
+    vertical-align: middle; 
+}
+
+/* ================================================= */
+/* 3. ÁREA PRINCIPAL DE CONTEÚDO (main) - PARTE BRANCA */
+/* ================================================= */
+main {
+    flex-grow: 1; 
+    padding: 30px; 
+}
+
+/* Título principal "Relatórios" */
+main > h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+}
+
+/* CONTROLES (Busca e Botão) */
+.report-controls {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* CORREÇÃO CAMPO DE BUSCA */
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-card-bg); /* Fundo BRANCO */
+    border: 1px solid var(--color-border-light);
+    border-radius: 5px;
+    padding: 5px 10px; 
+    width: 250px; 
+    height: 35px; /* Altura fixa para alinhar com o botão */
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 0.9em;
+    color: var(--color-text-dark);
+    background-color: transparent; /* Garante que o fundo seja o do .search-box */
+    height: 100%;
+    /* Se você tem um ícone de busca (img/search.png), adicione a classe 'search-icon' ao img */
+}
+
+/* Botão "Gerar novo" */
+.action-button.primary {
+    background-color: var(--color-action-button-bg);
+    color: var(--color-active-blue);
+    border: 1px solid var(--color-active-blue);
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* ================================================= */
+/* 4. TABELA DE DADOS (RELATÓRIOS) - CORREÇÃO DE BORDAS */
+/* ================================================= */
+
+.data-table-container {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light);
+    overflow: hidden; 
+    margin-bottom: 40px;
+}
+
+/* Garante o display: grid para o alinhamento das colunas */
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 2fr 1fr; 
+    padding: 15px 20px;
+    /* BORDA HORIZONTAL */
+    border-bottom: 1px solid var(--color-border-light); 
+    align-items: center;
+}
+
+/* Estilo do Cabeçalho da Tabela */
+.table-header {
+    font-weight: 600;
+    font-size: 0.95em;
+    border-bottom: 2px solid var(--color-border-light);
+}
+
+/* BORDA VERTICAL entre as colunas */
+.table-header .column,
+.table-row .column {
+    border-right: 1px solid var(--color-border-light); 
+    padding-right: 20px; 
+}
+
+/* Remove a borda vertical da última coluna */
+.table-header .column:last-child,
+.table-row .column:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+/* Remove a borda horizontal da última linha da tabela */
+.data-table-container .table-row:last-child {
+    border-bottom: none;
+}
+
+/* Botão "Editar" */
+.edit-button {
+    background-color: transparent;
+    color: var(--color-success-green);
+    border: 1px solid var(--color-success-green);
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.2s;
+}
+
+/* ================================================= */
+/* 5. GRÁFICOS */
+/* ================================================= */
+
+.chart-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 15px;
+}
+
+.charts-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.chart-card {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light);
+    padding: 20px;
+    min-height: 250px;
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-card p {
+    color: var(--color-text-light);
+    font-style: italic;
+    font-size: 0.9em;
+    text-align: center;
+}

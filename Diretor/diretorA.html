@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diretor</title>
+</head>
+
+<body>
+
+    <nav>
+        <div class="left-topbar">
+        <a href="index.html "class="logo">
+            <img class="logo" src="img/Rectangle.png" alt="" width="100px" height="70px">
+        </a>
+        </div>
+       <div class="direita-topbar">
+    
+    <a href="index.html" class="profile-link">
+        
+        <img class="perfil" src="img/Frame 4.png" alt="Perfil" width="50px" height="50px">
+        
+     
+    </a>
+    
+
+    
+</div>
+</nav>
+    <nav class="sidebar">
+        <ul>
+          <li><a href="diretorDa.html"> <img src="img/Performance Macbook.png"  alt="" height=""  width="">Dashbord</a></li>
+            <li><a href="DiretorF.html"><img src="img/Management.png"  alt="" height=""  width="">Funcionario</a></li>
+            <li><a href="diretorP.html"><img src="img/Rectangle (1).png"  alt="" height=""  width="">Pacientes</a></li>
+            <li><a href="diretorA.html"><img src="img/Task Planning.png"  alt="" height=""  width="">Agendamento</a></li>
+            <li><a href="diretorFu.html"><img src="img/Analytics.png"  alt="" height=""  width="">Financeiro</a></li>
+            <li><a href="diretorR.html"><img src="img/Business Report.png"  alt="" height=""  width="">Relatórios</a></li>
+            <li><a href="diretorC.html"><img src="img/Settings.png"  alt="" height=""  width="">Configurações</a></li>
+        </ul>
+    </nav>
+    <div class="main-content">
+    
+    <h1 class="page-title">Agendamentos</h1>
+    
+    <div class="toolbar">
+
+        <form action="buscar.php" method="GET">
+            <div class="search-box">
+
+                <input type="text" name="termo_busca" placeholder="procurar funcaionario" aria-label="Procurar Funcionário">
+                <button type="submit" class="search-icon-button" aria-label="Buscar">
+                    🔍
+                </button>
+
+
+            </div>
+        </form>
+        
+        <button class="add-button new-appointment-btn">
+            Novo Agendamento
+        </button>
+        
+    </div>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Espécie</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bella</td>
+                    <td>Golden Retriever</td>
+                    <td>20/04/25</td>
+                    <td>13:00</td>
+                    <td>
+                        <button onclick="" class="action-btn-green">Editar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Max</td>
+                    <td>Persa</td>
+                    <td>21/05/25</td>
+                    <td>10:00</td>
+                    <td>
+                        <button class="action-btn-green">Editar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Thor</td>
+                    <td>Labrador Retriever</td>
+                    <td>27/07/25</td>
+                    <td>11:00</td>
+                    <td>
+                        <button class="action-btn-green">Editar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Luna</td>
+                    <td>American Shorthair</td>
+                    <td>04/10/25</td>
+                    <td>09:00</td>
+                    <td>
+                        <button class="action-btn-green">Editar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>

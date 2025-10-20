@@ -1,0 +1,560 @@
+.sidebar {
+  position: fixed; ;
+  top: 60px; /* mesma altura da topbar */
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background-color: #9dd9eb;
+  padding-top: 20px;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  
+}
+.sidebar img{
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #9dd9eb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+/* Garante que o container de perfil/botão use flex para alinhar os dois blocos */
+.direita-topbar {
+    display: flex; 
+    flex-direction: row; /* Coloca o link do perfil e o botão lado a lado */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px;
+    padding-left: 20px;
+    gap: 10px; /* Espaçamento entre o bloco do perfil e o botão */
+    
+}
+
+/* NOVO: Estilos para o Link de Perfil (<a>) */
+.profile-link {
+    display: flex; 
+    flex-direction: column; /* Faz a imagem ficar acima do nome */
+    align-items: center; /* Centraliza a imagem e o texto horizontalmente */
+    text-decoration: none;
+    color: #000; 
+}
+
+/* Estilos para a Imagem dentro do link */
+.profile-link img.perfil {
+    width: 30px; 
+    height: 30px;
+    margin-bottom: 2px; /* Espaço entre a imagem e o nome */
+}
+
+/* Estilos para o Nome dentro do link */
+.profile-link p {
+    color: rgb(0, 0, 0); 
+    font-size: 12px; /* Ajuste o tamanho da fonte para o nome */
+    margin: 0;
+}
+
+.left-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-right:20px;
+    margin-right: 1160px;
+}
+.perfil{
+    text-align: end;
+    font-size: 30px;
+    color: white;
+}
+
+.direita-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left:20px;
+}
+.sidebar ul{
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+}
+/* 1. Ajuste a classe principal da sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 60px);
+    background-color: #9dd9eb;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* MUDANÇA: Alinha o conteúdo no topo, não no centro */
+    justify-content: flex-start; /* Altera de 'center' para 'flex-start' */
+    
+    /* Adiciona um padding nas laterais, caso não tenha */
+    padding-left: 0; 
+    padding-right: 0;
+}
+
+/* 2. Ajuste o container dos links (<ul>) */
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* remove overflow: hidden; se não for necessário */
+}
+
+/* 3. Estilo dos itens da lista (li) */
+.sidebar ul li {
+    margin-bottom: 5px; /* Espaço entre os itens do menu */
+}
+
+/* 4. Estilo dos Links (<a>) - O novo visual */
+.sidebar ul li a {
+    display: flex; /* Essencial para alinhar ícone e texto */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px 20px; /* Mais padding para dar espaço */
+    text-decoration: none;
+    color: #385a64; /* Cor mais escura para o texto */
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* 5. Efeito ao passar o mouse */
+.sidebar ul li a:hover {
+    background-color: #e9e9e9; /* Cor mais clara ao passar o mouse */
+    border-radius: 18px; /* Bordas arredondadas (se quiser) */;
+}
+
+/* 6. Estilo para o item ATIVO (como o Dashboard) */
+.sidebar ul li a.active {
+    background-color: white; /* Fundo branco ou mais claro */
+    color: #000000; /* Texto mais escuro */
+    border-radius: 5px; /* Bordas arredondadas (se quiser) */
+    /* Adiciona a 'sombra' ou leve separação visual se necessário */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    margin: 0 10px; /* Afasta um pouco das bordas da sidebar */
+}
+
+/* 7. Ajuste dos Ícones */
+.sidebar img {
+    /* MUDANÇA: Mais padronizado para o layout flex */
+    height: 20px;
+    width: 20px;
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    padding: 0; /* Remove padding desnecessário */
+    vertical-align: middle; /* Mantém a imagem alinhada se o display flex falhar */
+}
+/* ================================================= */
+/* VARIÁVEIS DE CORES PARA A ÁREA BRANCA (Ajustadas) */
+/* ================================================= */
+:root {
+    --color-light-bg: #F5F5F5; /* Fundo cinza claro da área principal */
+    --color-card-bg: #FFFFFF; /* Fundo branco para containers e cards */
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --color-border-light: #EEEEEE;
+    --color-active-blue: #2196F3;
+    
+    /* Dimensões Fixas da Topbar e Sidebar (Copiei do seu código) */
+    --sidebar-width: 240px;
+    --topbar-height: 60px;
+}
+
+/* ================================================= */
+/* VARIÁVEIS DE CORES PARA A ÁREA BRANCA */
+/* ================================================= */
+:root {
+    /* Manter a cor de fundo cinza clara para a área de conteúdo (fora dos cards) */
+    --color-light-bg: #F5F5F5;
+    --color-card-bg: #FFFFFF;
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --color-border-light: #EEEEEE;
+    --color-active-blue: #2196F3;
+    
+    /* Dimensões Fixas da Topbar e Sidebar (Copiei do seu código) */
+    --sidebar-width: 240px;
+    --topbar-height: 60px;
+}
+
+
+/* ================================================= */
+/* 1. LAYOUT DA ÁREA PRINCIPAL (main) */
+/* ================================================= */
+
+/* **Ajuste essencial para a main** */
+main {
+    /* * CORREÇÃO DE POSICIONAMENTO:
+     * 1. Adiciona padding no topo do body para dar espaço para a Topbar fixa (60px).
+     * 2. Adiciona padding na esquerda do body para dar espaço para a Sidebar fixa (240px).
+     */
+    padding-top: var(--topbar-height);
+    padding-left: var(--sidebar-width);
+    
+    /* Ocupa o restante do espaço */
+    flex-grow: 1;
+    background-color: var(--color-light-bg);
+    padding: 30px; /* Padding interno do conteúdo */
+    /* Remove a margem lateral que estava no código anterior,
+       pois agora estamos usando padding no <body> */
+    margin-left: 0; 
+}
+
+/* O corpo deve empurrar o conteúdo para baixo e para a lateral */
+/* Se este estilo não estiver em seu CSS, adicione-o no topo ou na seção de reset */
+body {
+    padding-top: var(--topbar-height); /* Empurra o conteúdo para baixo da Topbar */
+    padding-left: var(--sidebar-width); /* Empurra o conteúdo para o lado da Sidebar */
+    /* Garante que o conteúdo flua corretamente */
+    display: block; 
+}
+
+
+/* Título principal "Gerente" */
+main > h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+}
+
+/* ================================================= */
+/* 2. DASHBOARD METRICS (CARDS) */
+/* ================================================= */
+
+/* Container dos 4 cards (Assumindo que seja o primeiro div dentro de main) */
+main > div:nth-of-type(1) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Estilo do Card Individual */
+main > div:nth-of-type(1) > div {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--color-border-light);
+    min-height: 110px;
+}
+
+/* O número/valor (primeiro div filho dentro do card) */
+main > div:nth-of-type(1) > div > div:nth-child(1) {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+/* O label (segundo div filho dentro do card) */
+main > div:nth-of-type(1) > div > div:nth-child(2) {
+    font-size: 0.9em;
+    color: var(--color-text-light);
+}
+
+/* ================================================= */
+/* 3. SEÇÃO DE PENDÊNCIAS */
+/* ================================================= */
+
+/* Título "Pendências" */
+main > h3 {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 15px;
+}
+
+/* Container da Lista de Pendências (Assumindo que seja o segundo div dentro de main) */
+main > div:nth-of-type(2) {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light);
+    padding: 0 20px;
+    max-width: 600px; /* Limita a largura para o estilo da imagem */
+}
+
+/* Item Individual de Pendência */
+main > div:nth-of-type(2) > div {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+main > div:nth-of-type(2) > div:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+/* Estilo do Checkbox */
+main > div:nth-of-type(2) input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+    /* Usa uma cor de destaque no checkbox */
+    accent-color: var(--color-active-blue); 
+}
+
+/* Estilo do Label (Texto da Pendência) */
+main > div:nth-of-type(2) label {
+    font-size: 1em;
+    color: var(--color-text-dark);
+    cursor: pointer;
+}
+/* Título principal "Gerente" */
+main > h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+}
+
+/* DASHBOARD METRICS (CARDS) */
+main > div:nth-of-type(1) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+main > div:nth-of-type(1) > div {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    border: 1px solid var(--color-border-light);
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main > div:nth-of-type(1) > div > div:nth-child(1) {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+main > div:nth-of-type(1) > div > div:nth-child(2) {
+    font-size: 0.9em;
+    color: var(--color-text-light);
+}
+
+/* SEÇÃO DE PENDÊNCIAS */
+main > h3 {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 15px;
+}
+
+main > div:nth-of-type(2) {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light);
+    padding: 0 20px;
+    max-width: 600px;
+}
+
+main > div:nth-of-type(2) > div {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+main > div:nth-of-type(2) > div:last-child {
+    border-bottom: none;
+}
+
+main > div:nth-of-type(2) input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+    accent-color: var(--color-active-blue);
+}
+
+main > div:nth-of-type(2) label {
+    font-size: 1em;
+    color: var(--color-text-dark);
+    cursor: pointer;
+}
+ê forneceu o CSS completo para a Topbar e Sidebar (parte azul) e precisa do CSS da área de conteúdo branca para complementar a tela atual, que é a **Dashboard** (com cards de métricas e pendências, conforme `image_5e9518.png`).
+
+Este código se concentra exclusivamente na estilização dos elementos dentro da tag `<main>` para a tela do Dashboard, garantindo que ele se ajuste perfeitamente às suas dimensões de 60px de altura na Topbar e 240px de largura na Sidebar.
+
+### Código CSS para a Área Branca (Dashboard)
+
+**Adicione este código ao final do seu arquivo `style.css`:**
+
+```css
+/* ================================================= */
+/* VARIÁVEIS DE CORES PARA A ÁREA BRANCA */
+/* *Mantendo a consistência visual com o seu código* */
+/* ================================================= */
+:root {
+    --color-light-bg: #F5F5F5; /* Fundo cinza claro da área principal */
+    --color-card-bg: #FFFFFF; /* Fundo branco para containers e cards */
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --color-border-light: #EEEEEE;
+    --color-active-blue: #2196F3;
+    
+    /* Dimensões Fixas da Topbar e Sidebar (240px e 60px) */
+    --sidebar-width: 240px;
+    --topbar-height: 60px;
+}
+
+/* ================================================= */
+/* 1. POSICIONAMENTO DA ÁREA PRINCIPAL (MAIN) */
+/* *Se já estiver no seu CSS, ignore. É crucial para o layout* */
+/* ================================================= */
+body {
+    /* Empurra o conteúdo para baixo da Topbar */
+    padding-top: var(--topbar-height); 
+    /* Empurra o conteúdo para o lado da Sidebar */
+    padding-left: var(--sidebar-width); 
+    background-color: var(--color-light-bg);
+    display: block; 
+}
+
+main {
+    flex-grow: 1; 
+    padding: 30px; /* Padding interno do conteúdo da main */
+}
+
+/* Título principal "Gerente" */
+main > h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+}
+
+/* ================================================= */
+/* 2. DASHBOARD METRICS (CARDS) */
+/* ================================================= */
+
+/* Container dos 4 cards (Assumindo que seja o primeiro div dentro de main) */
+main > div:nth-of-type(1) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Estilo do Card Individual */
+main > div:nth-of-type(1) > div {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    /* Sombra suave como na imagem */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--color-border-light);
+    min-height: 110px;
+}
+
+/* O número/valor (35, R$12.300,00, etc.) */
+main > div:nth-of-type(1) > div > div:nth-child(1) {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+/* O label (Pacientes Atendidos, Faturamento, etc.) */
+main > div:nth-of-type(1) > div > div:nth-child(2) {
+    font-size: 0.9em;
+    color: var(--color-text-light);
+}
+
+/* ================================================= */
+/* 3. SEÇÃO DE PENDÊNCIAS */
+/* ================================================= */
+
+/* Título "Pendências" */
+main > h3 {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 15px;
+}
+
+/* Container da Lista de Pendências (Assumindo que seja o segundo div dentro de main) */
+main > div:nth-of-type(2) {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light);
+    padding: 0 20px;
+    max-width: 600px; /* Limita a largura para seguir o design */
+}
+
+/* Item Individual de Pendência */
+main > div:nth-of-type(2) > div {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+main > div:nth-of-type(2) > div:last-child {
+    border-bottom: none;
+}
+
+/* Estilo do Checkbox */
+main > div:nth-of-type(2) input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+    /* Usa a cor azul de destaque */
+    accent-color: var(--color-active-blue);
+}
+
+/* Estilo do Label (Texto da Pendência) */
+main > div:nth-of-type(2) label {
+    font-size: 1em;
+    color: var(--color-text-dark);
+    cursor: pointer;
+}
+```
+
+
+
+
+
+
+
+Ent

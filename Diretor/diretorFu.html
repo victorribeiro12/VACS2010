@@ -1,0 +1,107 @@
+!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diretor</title>
+</head>
+
+<body>
+
+    <nav>
+        <div class="left-topbar">
+        <a href="index.html "class="logo">
+            <img class="logo" src="img/Rectangle.png" alt="" width="100px" height="70px">
+        </a>
+        </div>
+       <div class="direita-topbar">
+    
+    <a href="index.html" class="profile-link">
+        
+        <img class="perfil" src="img/Frame 4.png" alt="Perfil" width="50px" height="50px">
+        
+     
+    </a>
+    
+
+    
+</div>
+</nav>
+    <nav class="sidebar">
+        <ul>
+          <li><a href="diretorDa.html"> <img src="img/Performance Macbook.png"  alt="" height=""  width="">Dashbord</a></li>
+            <li><a href="DiretorF.html"><img src="img/Management.png"  alt="" height=""  width="">Funcionario</a></li>
+            <li><a href="diretorP.html"><img src="img/Rectangle (1).png"  alt="" height=""  width="">Pacientes</a></li>
+            <li><a href="diretorA.html"><img src="img/Task Planning.png"  alt="" height=""  width="">Agendamento</a></li>
+            <li><a href="diretorFu.html"><img src="img/Analytics.png"  alt="" height=""  width="">Financeiro</a></li>
+            <li><a href="diretorR.html"><img src="img/Business Report.png"  alt="" height=""  width="">Relatórios</a></li>
+            <li><a href="diretorC.html"><img src="img/Settings.png"  alt="" height=""  width="">Configurações</a></li>
+        </ul>
+    </nav>
+
+  <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <h1 class="page-title text-3xl font-bold text-gray-800 mb-6">Lista de Funcionários</h1>
+
+        <!-- Seção de Busca e Botões (Toolbar) -->
+        <div class="toolbar">
+            
+            <div class="search-input-group">
+                <input type="text" id="inputBusca" placeholder="Buscar por nome do funcionário..."
+                    class="search-input"
+                    onkeyup="if (event.key === 'Enter') buscarDados();"
+                >
+                <button id="btnBuscar">
+                    Buscar Dados
+                </button>
+            </div>
+
+            <button id="btnAdd">
+                + Adicionar Novo
+            </button>
+        </div>
+
+        <!-- Tabela de Resultados -->
+        <div class="table-container">
+            <table id="tabelaGeral">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Cidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaFuncionarios">
+                    <!-- O conteúdo será preenchido pelo JavaScript -->
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            Carregando dados...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal de Mensagem -->
+        <div id="modalMessage" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h3 id="modalTitle" class="text-xl font-bold mb-3">Mensagem</h3>
+                <p id="modalBody" class="text-gray-700 mb-6"></p>
+                <button onclick="document.getElementById('modalMessage').classList.add('hidden')"
+                    class="modal-close-btn">
+                    Fechar
+                </button>
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- LIGAÇÃO COM O ARQUIVO DE LÓGICA EXTERNO -->
+    <script src="../Diretor/diretor.js"></script>
+</body>
+</html>
+

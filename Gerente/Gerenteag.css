@@ -1,0 +1,314 @@
+.sidebar {
+  position: fixed; ;
+  top: 60px; /* mesma altura da topbar */
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background-color: #9dd9eb;
+  padding-top: 20px;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  
+}
+.sidebar img{
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #9dd9eb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+/* Garante que o container de perfil/botão use flex para alinhar os dois blocos */
+.direita-topbar {
+    display: flex; 
+    flex-direction: row; /* Coloca o link do perfil e o botão lado a lado */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px;
+    padding-left: 20px;
+    gap: 10px; /* Espaçamento entre o bloco do perfil e o botão */
+    
+}
+
+/* NOVO: Estilos para o Link de Perfil (<a>) */
+.profile-link {
+    display: flex; 
+    flex-direction: column; /* Faz a imagem ficar acima do nome */
+    align-items: center; /* Centraliza a imagem e o texto horizontalmente */
+    text-decoration: none;
+    color: #000; 
+}
+
+/* Estilos para a Imagem dentro do link */
+.profile-link img.perfil {
+    width: 30px; 
+    height: 30px;
+    margin-bottom: 2px; /* Espaço entre a imagem e o nome */
+}
+
+/* Estilos para o Nome dentro do link */
+.profile-link p {
+    color: rgb(0, 0, 0); 
+    font-size: 12px; /* Ajuste o tamanho da fonte para o nome */
+    margin: 0;
+}
+
+.left-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-right:20px;
+    margin-right: 1160px;
+}
+.perfil{
+    text-align: end;
+    font-size: 30px;
+    color: white;
+}
+
+.direita-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left:20px;
+}
+.sidebar ul{
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+}
+/* 1. Ajuste a classe principal da sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 60px);
+    background-color: #9dd9eb;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* MUDANÇA: Alinha o conteúdo no topo, não no centro */
+    justify-content: flex-start; /* Altera de 'center' para 'flex-start' */
+    
+    /* Adiciona um padding nas laterais, caso não tenha */
+    padding-left: 0; 
+    padding-right: 0;
+}
+
+/* 2. Ajuste o container dos links (<ul>) */
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* remove overflow: hidden; se não for necessário */
+}
+
+/* 3. Estilo dos itens da lista (li) */
+.sidebar ul li {
+    margin-bottom: 5px; /* Espaço entre os itens do menu */
+}
+
+/* 4. Estilo dos Links (<a>) - O novo visual */
+.sidebar ul li a {
+    display: flex; /* Essencial para alinhar ícone e texto */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px 20px; /* Mais padding para dar espaço */
+    text-decoration: none;
+    color: #385a64; /* Cor mais escura para o texto */
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* 5. Efeito ao passar o mouse */
+.sidebar ul li a:hover {
+    background-color: #e9e9e9; /* Cor mais clara ao passar o mouse */
+    border-radius: 18px; /* Bordas arredondadas (se quiser) */;
+}
+
+/* 6. Estilo para o item ATIVO (como o Dashboard) */
+.sidebar ul li a.active {
+    background-color: white; /* Fundo branco ou mais claro */
+    color: #000000; /* Texto mais escuro */
+    border-radius: 5px; /* Bordas arredondadas (se quiser) */
+    /* Adiciona a 'sombra' ou leve separação visual se necessário */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    margin: 0 10px; /* Afasta um pouco das bordas da sidebar */
+}
+
+/* 7. Ajuste dos Ícones */
+.sidebar img {
+    /* MUDANÇA: Mais padronizado para o layout flex */
+    height: 20px;
+    width: 20px;
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    padding: 0; /* Remove padding desnecessário */
+    vertical-align: middle; /* Mantém a imagem alinhada se o display flex falhar */
+}
+/* ================================================= */
+/* VARIÁVEIS DE CORES E DIMENSÕES */
+/* ================================================= */
+:root {
+    /* Mantém as cores padrão */
+    --color-light-bg: #F5F5F5; 
+    --color-card-bg: #FFFFFF; 
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --color-border-light: #EEEEEE;
+    --color-active-blue: #2196F3;
+    --color-success-green: #4CAF50;
+    
+    /* SUAS DIMENSÕES FIXAS */
+    --sidebar-width: 240px;
+    --topbar-height: 60px;
+}
+
+/* ================================================= */
+/* 1. LAYOUT PRINCIPAL (CORREÇÃO CRÍTICA DO BODY) */
+/* *Se você não tiver estas regras, adicione-as no topo do seu CSS* */
+/* ================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CORREÇÃO PRINCIPAL: Cria espaço para os elementos fixos (nav e sidebar) */
+body {
+    min-height: 100vh;
+    background-color: var(--color-light-bg);
+    /* ESSENCIAIS para que a <main> não fique debaixo da nav/sidebar */
+    padding-top: var(--topbar-height); 
+    padding-left: var(--sidebar-width); 
+    display: block; 
+}
+
+/* ================================================= */
+/* 2. ÁREA PRINCIPAL BRANCA (main) */
+/* ================================================= */
+main {
+    flex-grow: 1; 
+    padding: 30px; /* Padding interno do conteúdo */
+    background-color: var(--color-light-bg);
+}
+
+/* Título da Página "Funcionários da Clínica" */
+main > h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 25px;
+}
+
+/* ================================================= */
+/* 3. BOTÃO "ADICIONAR FUNCIONÁRIO" */
+/* ================================================= */
+
+.header-content { margin-bottom: 20px; }
+
+.add-button {
+    background-color: transparent;
+    color: var(--color-active-blue);
+    border: 1px solid var(--color-active-blue);
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.add-button:hover {
+    background-color: var(--color-active-blue);
+    color: var(--color-card-bg);
+}
+
+/* ================================================= */
+/* 4. TABELA DE DADOS (FUNCIONÁRIOS) - CORREÇÃO DE GRID */
+/* ================================================= */
+
+.data-table-container {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light);
+    overflow: hidden; 
+}
+
+/* Estrutura de Grid para a Tabela */
+.table-header,
+.table-row {
+    display: grid;
+    /* Define as larguras das 4 colunas: Nome (maior), Cargo, Status, Contato */
+    grid-template-columns: 2.5fr 1.5fr 1fr 2fr; 
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-border-light); 
+    align-items: center;
+}
+
+/* Estilo do Cabeçalho da Tabela */
+.table-header {
+    background-color: var(--color-card-bg); 
+    color: var(--color-text-dark);
+    font-weight: 600;
+    font-size: 0.95em;
+    border-bottom: 2px solid var(--color-border-light);
+}
+
+/* **CORREÇÃO DE BARRAS:** Adiciona a borda vertical à direita de cada coluna (célula) */
+.table-header .column,
+.table-row .column {
+    border-right: 1px solid var(--color-border-light); 
+    padding-right: 20px; 
+}
+
+/* Remove a borda vertical da última coluna */
+.table-header .column:last-child,
+.table-row .column:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+/* Estilo das Linhas de Dados */
+.table-row {
+    color: var(--color-text-dark);
+    font-size: 0.9em;
+}
+
+.table-row:last-child { border-bottom: none; }
+
+
+/* Estilo Específico para o status 'Ativo' (com o ponto verde) */
+.column.status.active {
+    color: var(--color-success-green);
+    position: relative;
+    padding-left: 12px !important; 
+    font-weight: 500;
+}
+
+.column.status.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-success-green);
+}

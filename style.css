@@ -1,0 +1,162 @@
+.sidebar {
+  position: fixed; ;
+  top: 60px; /* mesma altura da topbar */
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background-color: #9dd9eb;
+  padding-top: 20px;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  
+}
+.sidebar img{
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #9dd9eb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+/* Garante que o container de perfil/botão use flex para alinhar os dois blocos */
+.direita-topbar {
+    display: flex; 
+    flex-direction: row; /* Coloca o link do perfil e o botão lado a lado */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px;
+    padding-left: 20px;
+    gap: 10px; /* Espaçamento entre o bloco do perfil e o botão */
+    
+}
+
+/* NOVO: Estilos para o Link de Perfil (<a>) */
+.profile-link {
+    display: flex; 
+    flex-direction: column; /* Faz a imagem ficar acima do nome */
+    align-items: center; /* Centraliza a imagem e o texto horizontalmente */
+    text-decoration: none;
+    color: #000; 
+}
+
+/* Estilos para a Imagem dentro do link */
+.profile-link img.perfil {
+    width: 30px; 
+    height: 30px;
+    margin-bottom: 2px; /* Espaço entre a imagem e o nome */
+}
+
+/* Estilos para o Nome dentro do link */
+.profile-link p {
+    color: rgb(0, 0, 0); 
+    font-size: 12px; /* Ajuste o tamanho da fonte para o nome */
+    margin: 0;
+}
+
+.left-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-right:20px;
+    margin-right: 1160px;
+}
+.perfil{
+    text-align: end;
+    font-size: 30px;
+    color: white;
+}
+
+.direita-topbar{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left:20px;
+}
+.sidebar ul{
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+}
+/* 1. Ajuste a classe principal da sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 60px);
+    background-color: #9dd9eb;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* MUDANÇA: Alinha o conteúdo no topo, não no centro */
+    justify-content: flex-start; /* Altera de 'center' para 'flex-start' */
+    
+    /* Adiciona um padding nas laterais, caso não tenha */
+    padding-left: 0; 
+    padding-right: 0;
+}
+
+/* 2. Ajuste o container dos links (<ul>) */
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* remove overflow: hidden; se não for necessário */
+}
+
+/* 3. Estilo dos itens da lista (li) */
+.sidebar ul li {
+    margin-bottom: 5px; /* Espaço entre os itens do menu */
+}
+
+/* 4. Estilo dos Links (<a>) - O novo visual */
+.sidebar ul li a {
+    display: flex; /* Essencial para alinhar ícone e texto */
+    align-items: center; /* Alinha verticalmente no centro */
+    padding: 10px 20px; /* Mais padding para dar espaço */
+    text-decoration: none;
+    color: #385a64; /* Cor mais escura para o texto */
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* 5. Efeito ao passar o mouse */
+.sidebar ul li a:hover {
+    background-color: #e9e9e9; /* Cor mais clara ao passar o mouse */
+    border-radius: 18px; /* Bordas arredondadas (se quiser) */;
+}
+
+/* 6. Estilo para o item ATIVO (como o Dashboard) */
+.sidebar ul li a.active {
+    background-color: white; /* Fundo branco ou mais claro */
+    color: #000000; /* Texto mais escuro */
+    border-radius: 5px; /* Bordas arredondadas (se quiser) */
+    /* Adiciona a 'sombra' ou leve separação visual se necessário */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    margin: 0 10px; /* Afasta um pouco das bordas da sidebar */
+}
+
+/* 7. Ajuste dos Ícones */
+.sidebar img {
+    /* MUDANÇA: Mais padronizado para o layout flex */
+    height: 20px;
+    width: 20px;
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    padding: 0; /* Remove padding desnecessário */
+    vertical-align: middle; /* Mantém a imagem alinhada se o display flex falhar */
+}
