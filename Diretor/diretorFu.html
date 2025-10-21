@@ -40,68 +40,6 @@
             <li><a href="diretorC.html"><img src="img/Settings.png"  alt="" height=""  width="">Configurações</a></li>
         </ul>
     </nav>
-
-  <!-- Conteúdo Principal -->
-    <main class="main-content">
-        <h1 class="page-title text-3xl font-bold text-gray-800 mb-6">Lista de Funcionários</h1>
-
-        <!-- Seção de Busca e Botões (Toolbar) -->
-        <div class="toolbar">
-            
-            <div class="search-input-group">
-                <input type="text" id="inputBusca" placeholder="Buscar por nome do funcionário..."
-                    class="search-input"
-                    onkeyup="if (event.key === 'Enter') buscarDados();"
-                >
-                <button id="btnBuscar">
-                    Buscar Dados
-                </button>
-            </div>
-
-            <button id="btnAdd">
-                + Adicionar Novo
-            </button>
-        </div>
-
-        <!-- Tabela de Resultados -->
-        <div class="table-container">
-            <table id="tabelaGeral">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Cidade</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaFuncionarios">
-                    <!-- O conteúdo será preenchido pelo JavaScript -->
-                    <tr>
-                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                            Carregando dados...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Modal de Mensagem -->
-        <div id="modalMessage" class="modal-overlay hidden">
-            <div class="modal-content">
-                <h3 id="modalTitle" class="text-xl font-bold mb-3">Mensagem</h3>
-                <p id="modalBody" class="text-gray-700 mb-6"></p>
-                <button onclick="document.getElementById('modalMessage').classList.add('hidden')"
-                    class="modal-close-btn">
-                    Fechar
-                </button>
-            </div>
-        </div>
-
-    </main>
-    
-    <!-- LIGAÇÃO COM O ARQUIVO DE LÓGICA EXTERNO -->
     <script src="diretor.js"></script>
 </body>
 </html>
-
