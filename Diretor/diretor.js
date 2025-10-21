@@ -1,39 +1,70 @@
-// URL do script PHP atualizado para refletir a nova estrutura 
-const API_URL = "../Php/diretor.php"; 
+// URL do script PHP da API
+const API_URL = "/Diretor/diretor.php"; 
 
 // Referências aos elementos do DOM
 const tabelaFuncionarios = document.getElementById('tabelaFuncionarios');
 const inputBusca = document.getElementById('inputBusca');
 const btnBuscar = document.getElementById('btnBuscar');
-const btnAdd = document.getElementById('btnAdd'); 
+const btnAdd = document.getElementById('btnAdd'); // Assumindo que este botão abre um modal de adição
 
-function showMessage(title, message, isError = true) {
-    // ... (seu código original do modal aqui) ...
-    console.log(`${isError ? 'ERRO' : 'INFO'}: ${title} - ${message}`); // fallback para console
+// Referências para o novo Modal de Mensagem (Assumindo a estrutura do modal do seu HTML anterior)
+const modalMessage = document.getElementById('modalMessage');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+
+/**
+ * Função de segurança simples para prevenir XSS.
+ * Substitui <, >, & por suas entidades HTML.
+ */
+function sanitize(str) {
+    if (!str) return 'N/A'; // Retorna 'N/A' se for null, undefined ou string vazia
+    return str.toString()
+             .replace(/&/g, '&amp;')
+             .replace(/</g, '&lt;')
+             .replace(/>/g, '&gt;');
 }
 
 /**
- * ATUALIZADO: Monta as linhas da tabela no HTML com os novos dados.
- * @param {Array} funcionarios 
+ * Exibe uma mensagem usando o Modal HTML (substitui o 'alert' original).
+ */
+function showMessage(title, message, isError = true) {
+    console.log(`${isError ? 'ERRO' : 'INFO'}: ${title} - ${message}`);
+    
+    // Verifica se o modal existe no DOM
+    if (modalMessage && modalTitle && modalBody) {
+        modalTitle.textContent = title;
+        modalBody.textContent = message;
+        modalMessage.classList.remove('hidden');
+    } else {
+        // Fallback para alert caso o HTML não tenha o modal
+        alert(`${title}\n\n${message}`);
+    }
+}
+
+/**
+ * Monta as linhas da tabela no HTML com os dados.
+ * Nota: As colunas aqui (4 de dados + 1 de ação) devem coincidir com o TH do HTML.
  */
 function renderizarTabela(funcionarios) {
     let html = '';
     
-    // O colspan continua 5, pois temos 4 colunas de dados + 1 de ações.
+    // NOTA: Colspan ajustado para 5 (Nome, Função, Setor, Telefone, Ações)
+    const COLSPAN_COUNT = 5; 
+
     if (!funcionarios || funcionarios.length === 0) {
-        html = `<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">Nenhum funcionário encontrado.</td></tr>`;
+        html = `<tr><td colspan="${COLSPAN_COUNT}" class="px-6 py-4 text-center text-gray-500">Nenhum funcionário encontrado.</td></tr>`;
     } else {
         funcionarios.forEach(func => {
-            // O 'id' ainda é necessário para os botões, mesmo que não seja mais exibido na tabela.
+            // As propriedades func.id, func.nome, func.funcao, etc. DEVEM vir do PHP.
             html += `
-                <tr>
-                    <td>${func.nome || 'N/A'}</td>
-                    <td>${func.funcao || 'N/A'}</td>
-                    <td>${func.setor || 'N/A'}</td>
-                    <td>${func.telefone || 'N/A'}</td>
+                <tr data-id="${func.id}">
+                    <td>${sanitize(func.nome)}</td>
+                    <td>${sanitize(func.funcao)}</td>
+                    <td>${sanitize(func.setor)}</td>
+                    <td>${sanitize(func.telefone)}</td>
                     <td class="whitespace-nowrap">
-                        <button onclick="visualizarFuncionario(${func.id})" class="action-button view">Ver</button>
-                        <button onclick="excluirFuncionario(${func.id})" class="action-button delete">Excluir</button>
+                        <button data-action="view" data-id="${func.id}" class="action-button view">Ver</button>
+                        <button data-action="delete" data-id="${func.id}" class="action-button delete">Excluir</button>
                     </td>
                 </tr>
             `;
@@ -43,26 +74,29 @@ function renderizarTabela(funcionarios) {
 }
 
 /**
- * Função para carregar os dados iniciais que o PHP já forneceu.
- * (Esta função não precisa de alterações)
+ * Carrega os dados iniciais. Se DADOS_INICIAIS_DO_PHP existir, usa, senão busca.
+ * (A busca na API é mais comum para garantir dados frescos).
  */
 function carregarDadosIniciais() {
-    if (typeof DADOS_INICIAIS_DO_PHP !== 'undefined' && DADOS_INICIAIS_DO_PHP.length > 0) {
-        renderizarTabela(DADOS_INICIAIS_DO_PHP);
-    } else {
-        tabelaFuncionarios.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">Nenhum dado inicial para mostrar.</td></tr>';
-    }
+    // Embora o código original sugerisse carregar dados injetados,
+    // a prática mais robusta para painéis de gerenciamento é buscar direto na API.
+    buscarDados(); 
+}
+
+/**
+ * Mostra uma mensagem de "carregando" na tabela.
+ */
+function setTabelaCarregando() {
+    // NOTA: Colspan ajustado para 5
+    tabelaFuncionarios.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center">Carregando...</td></tr>';
 }
 
 /**
  * Função para buscar dados dinamicamente usando fetch.
- * ATUALIZADO para usar a nova API_URL.
  */
 async function buscarDados() {
-    tabelaFuncionarios.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center">Buscando...</td></tr>';
+    setTabelaCarregando();
     const termoBusca = inputBusca.value.trim();
-    
-    // Constrói a URL de busca apontando para diretor.php com os parâmetros corretos
     const urlBusca = `${API_URL}?action=buscar&busca=${encodeURIComponent(termoBusca)}`;
 
     try {
@@ -77,34 +111,28 @@ async function buscarDados() {
     } catch (error) {
         console.error("Erro na busca de dados:", error);
         showMessage("Erro de Comunicação", `Não foi possível carregar os dados. Detalhes: ${error.message}`, true);
+        tabelaFuncionarios.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Falha ao buscar dados.</td></tr>`;
     }
 }
 
 /**
  * Função para adicionar um novo funcionário.
- * ATUALIZADO para usar a nova API_URL e enviar os dados corretos.
  */
-async function adicionarFuncionarioPHP() {
-    // Dados de exemplo com a nova estrutura
-    const novoFuncionario = {
-        nome: `Nova Pessoa ${Date.now()}`.substring(0,25),
-        funcao: "Assistente",
-        setor: "Administrativo",
-        telefone: "(31) 99999-0000"
-    };
-
+async function adicionarFuncionarioPHP(dadosFormulario) {
+    setTabelaCarregando(); // Feedback visual
     try {
         const response = await fetch(`${API_URL}?action=adicionar`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(novoFuncionario) 
+            body: JSON.stringify(dadosFormulario) 
         });
 
         const resultado = await response.json();
 
         if (resultado.success) {
             showMessage("Sucesso!", resultado.message, false);
-            buscarDados(); // Recarrega a tabela para mostrar o novo funcionário
+            inputBusca.value = ''; 
+            buscarDados(); 
         } else {
             showMessage("Erro no Servidor", resultado.message || 'Erro desconhecido.', true);
         }
@@ -114,17 +142,106 @@ async function adicionarFuncionarioPHP() {
     }
 }
 
-// Funções de Ação (Apenas para demonstração)
-function visualizarFuncionario(id) {
-    showMessage("Visualizar", `Funcionalidade para visualizar o Funcionário ID ${id}.`, false);
-}
-function excluirFuncionario(id) {
-    showMessage("Exclusão", `Funcionalidade para excluir o Funcionário ID ${id}.`, false);
+/**
+ * Função para visualizar. Busca os dados completos do funcionário na API pelo ID.
+ */
+async function visualizarFuncionario(id) {
+    console.log(`Buscando dados para visualizar ID: ${id}`);
+    
+    try {
+        // Mantido o envio do ID, que é o padrão da tabela e da maioria das APIs CRUD.
+        const response = await fetch(`${API_URL}?action=visualizar&id=${id}`); 
+        const dados = await response.json();
+
+        if (dados.success === false) { 
+            showMessage("Erro", dados.message, true);
+        } else {
+            // AQUI você preencheria seu modal/formulário de visualização
+            console.log("Dados recebidos:", dados);
+            showMessage("Visualizar Funcionário", 
+                `ID: ${dados.id}\nNome: ${dados.nome}\nFunção: ${dados.funcao}\n(Mais detalhes no console.)`, 
+                false
+            );
+        }
+    } catch (error) {
+        showMessage("Erro de Comunicação", `Não foi possível buscar os dados do funcionário. Detalhes: ${error.message}`, true);
+    }
 }
 
-// Associa os Event Listeners aos botões
+/**
+ * Função real para excluir.
+ */
+async function excluirFuncionario(id) {
+    // Pede confirmação
+    if (!confirm(`Tem certeza que deseja excluir o funcionário ID ${id}? Esta ação não pode ser desfeita.`)) {
+        return; // Usuário cancelou
+    }
+
+    try {
+        const response = await fetch(`${API_URL}?action=excluir`, {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id }) // Envia o ID no corpo da requisição
+        });
+
+        const resultado = await response.json();
+
+        if (resultado.success) {
+            showMessage("Sucesso!", resultado.message, false);
+            buscarDados(); // Recarrega a tabela para remover o funcionário
+        } else {
+            showMessage("Erro no Servidor", resultado.message || 'Erro desconhecido.', true);
+        }
+
+    } catch (error) {
+        showMessage("Erro de Comunicação", `Não foi possível excluir o funcionário. Detalhes: ${error.message}`, true);
+    }
+}
+
+
+// --- Event Listeners ---
+
+// Ação para o botão de busca
 btnBuscar.addEventListener('click', buscarDados);
-btnAdd.addEventListener('click', adicionarFuncionarioPHP);
 
-// Inicia a renderização com os dados que o PHP já injetou na página
+// Permite buscar pressionando "Enter" no campo de busca
+inputBusca.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+        buscarDados();
+    }
+});
+
+// Ação para o botão de adicionar (simulação)
+btnAdd.addEventListener('click', () => {
+    // Simulação: cria dados de teste e chama a função de adicionar
+    const dadosDeTeste = {
+        nome: `Pessoa Teste ${Date.now()}`.substring(0,25),
+        funcao: "Testador",
+        setor: "Qualidade",
+        telefone: "(11) 98888-7777"
+    };
+    
+    // Chama a função que realmente fala com a API
+    adicionarFuncionarioPHP(dadosDeTeste);
+});
+
+
+// Event Delegation: Um único listener na tabela para gerenciar todos os cliques nos botões
+tabelaFuncionarios.addEventListener('click', (event) => {
+    const target = event.target; // O elemento exato que foi clicado
+
+    // Verifica se o clique foi em um botão com data-action
+    if (target.tagName === 'BUTTON' && target.dataset.action) {
+        const action = target.dataset.action;
+        const id = target.dataset.id;
+
+        if (action === 'view') {
+            visualizarFuncionario(id);
+        } else if (action === 'delete') {
+            excluirFuncionario(id);
+        }
+    }
+});
+
+// Inicia a renderização quando a página é carregada
 window.onload = carregarDadosIniciais;

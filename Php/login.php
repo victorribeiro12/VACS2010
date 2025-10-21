@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($tipo_usuario === null) {
         // Redireciona para index.php se o domínio não for válido
-        header("Location: ../index.php");
+        header("Location: index.php");
         exit();
     }
 
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conexao->close();
 
 } else {
-    header("Location: ../cadastro.php");
+    header("Location: cadastro.php");
     exit();
 }
 ?>

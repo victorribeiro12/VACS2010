@@ -2,8 +2,8 @@
 // db.php - Conexão com o banco de dados
 
 $DB_HOST = 'localhost';       // Servidor do banco
-$DB_USER = 'usuario';         // Usuário criado no MySQL
-$DB_PASS = 'minhasenha123';   // Senha do usuário
+$DB_USER = 'root';         // Usuário criado no MySQL
+$DB_PASS = '';   // Senha do usuário
 $DB_NAME = 'vacs';            // Nome do banco de dados
 
 // --- CRIA A CONEXÃO ---

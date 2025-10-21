@@ -3,16 +3,13 @@
 session_start();
 
 // --- Se o usuário já estiver logado, redireciona direto para o index ---
+// ESSA LÓGICA MANTÉM O USUÁRIO LOGADO LONGE DA PÁGINA DE CADASTRO.
 if (isset($_SESSION['usuario_nome'])) {
     header("Location: index.php");
     exit();
 }
 
-// --- Define o index.php como página inicial quando aberto no Laragon ---
-if (basename($_SERVER['PHP_SELF']) === 'index.php') {
-    header("Location: cadastro.php");
-    exit();
-}
+// O BLOCO DE REDIRECIONAMENTO DESNECESSÁRIO FOI REMOVIDO DAQUI.
 ?>
 
 <!DOCTYPE html>
