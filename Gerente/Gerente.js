@@ -1,8 +1,6 @@
-// URL do script PHP da API
-const API_URL = "/Diretor/diretor.php"; 
-
-// Referências aos elementos do DOM
+// DOM element references
 const tabelaFuncionarios = document.getElementById('tabelaFuncionarios');
+
 const inputBusca = document.getElementById('inputBusca');
 const btnBuscar = document.getElementById('btnBuscar');
 const btnAdd = document.getElementById('btnAdd'); // Assumindo que este botão abre um modal de adição
@@ -12,8 +10,18 @@ const modalMessage = document.getElementById('modalMessage');
 const modalTitle = document.getElementById('modalTitle');
 const modalBody = document.getElementById('modalBody');
 
+// URL do script PHP da API
+const API_URL = "/Diretor/diretor.php";
+
+// Adiciona esta linha para garantir que o valor padrão seja 5 se COLSPAN_COUNT não estiver definido
+const numFuncionarios = 5;
+
+
+const COLSPAN_COUNT = 5;
+
 /**
  * Função de segurança simples para prevenir XSS.
+ * @param {string} str - String to sanitize.
  * Substitui <, >, & por suas entidades HTML.
  */
 function sanitize(str) {
@@ -23,6 +31,11 @@ function sanitize(str) {
              .replace(/</g, '&lt;')
              .replace(/>/g, '&gt;');
 }
+
+function closeModal() {
+    modalMessage.classList.add('hidden');
+}
+
 
 /**
  * Exibe uma mensagem usando o Modal HTML (substitui o 'alert' original).
@@ -34,6 +47,7 @@ function showMessage(title, message, isError = true) {
     if (modalMessage && modalTitle && modalBody) {
         modalTitle.textContent = title;
         modalBody.textContent = message;
+
         modalMessage.classList.remove('hidden');
     } else {
         // Fallback para alert caso o HTML não tenha o modal
@@ -47,9 +61,6 @@ function showMessage(title, message, isError = true) {
  */
 function renderizarTabela(funcionarios) {
     let html = '';
-    
-    // NOTA: Colspan ajustado para 5 (Nome, Função, Setor, Telefone, Ações)
-    const COLSPAN_COUNT = 5; 
 
     if (!funcionarios || funcionarios.length === 0) {
         html = `<tr><td colspan="${COLSPAN_COUNT}" class="px-6 py-4 text-center text-gray-500">Nenhum funcionário encontrado.</td></tr>`;
@@ -110,7 +121,7 @@ async function buscarDados() {
 
     } catch (error) {
         console.error("Erro na busca de dados:", error);
-        showMessage("Erro de Comunicação", `Não foi possível carregar os dados. Detalhes: ${error.message}`, true);
+        showMessage("Erro de Comunicação", `Não foi possível carregar os dados. Por favor, tente novamente mais tarde.`, true);
         tabelaFuncionarios.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Falha ao buscar dados.</td></tr>`;
     }
 }
@@ -163,9 +174,46 @@ async function visualizarFuncionario(id) {
                 false
             );
         }
-    } catch (error) {
+    }   catch (error) {
         showMessage("Erro de Comunicação", `Não foi possível buscar os dados do funcionário. Detalhes: ${error.message}`, true);
     }
+}
+
+
+function gerarFuncionariosAleatorios(numFuncionarios) {
+    const nomes = ["Belinha", "Doguinha", "Bethoven", "Rex", "Lessie"];
+    const funcoes = ["Veterinário", "Auxiliar", "Recepcionista", "Tosador", "Faxineiro"];
+    const setores = ["Clínica", "Cirurgia", "Recepção", "Estética", "Limpeza"];
+
+    const funcionarios = [];
+    for (let i = 0; i < numFuncionarios; i++) {
+        const nome = nomes[Math.floor(Math.random() * nomes.length)] + " " + (i + 1);
+        const funcao = funcoes[Math.floor(Math.random() * funcoes.length)];
+        const setor = setores[Math.floor(Math.random() * setores.length)];
+        const email = nome.replace(" ", ".").toLowerCase() + "@clinicavet.com";
+        const telefone = "(11) 9" + Math.floor(Math.random() * 900000000 + 100000000);
+
+        funcionarios.push({
+            id: i + 1,
+            nome: nome,
+            funcao: funcao,
+            setor: setor,
+            email: email,
+            telefone: telefone
+        });
+    }
+    return funcionarios;
+}
+
+/**
+ * Carrega os dados iniciais. Se DADOS_INICIAIS_DO_PHP existir, usa, senão busca.
+ * (A busca na API é mais comum para garantir dados frescos).
+ */
+
+function carregarDadosIniciais() {
+    // Aqui, em vez de buscar dados da API, geramos dados aleatórios.
+    const funcionariosAleatorios = gerarFuncionariosAleatorios(numFuncionarios);
+    renderizarTabela(funcionariosAleatorios);
 }
 
 /**
@@ -245,3 +293,11 @@ tabelaFuncionarios.addEventListener('click', (event) => {
 
 // Inicia a renderização quando a página é carregada
 window.onload = carregarDadosIniciais;
+
+modalMessage.addEventListener('click', (event) => {
+    closeModal();
+});
+
+inputBusca.addEventListener('input', function() {
+    buscarDados();
+});
