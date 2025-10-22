@@ -1,0 +1,371 @@
+/* RESET E BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fredoka', sans-serif;
+}
+
+body {
+  background: #fff;
+  color: #333;
+}
+
+/* HEADER */
+.header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+}
+
+.logo {
+  width: 80px;
+}
+
+.search-bar input {
+  width: 320px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header-actions button {
+  background: none;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-btn {
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 8px 14px;
+}
+
+/* MENU */
+.menu {
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.menu ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 30px;
+  padding: 12px 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.menu a:hover {
+  color: #00796b;
+}
+
+/* PROMOÇÕES */
+.promocoes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px auto;
+  max-width: 1000px;
+}
+
+.promocoes .card {
+  background: #f8f5ff;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 30%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* BANNER PRINCIPAL */
+.banner {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  background: #fff9e6;
+  border-radius: 15px;
+  max-width: 1000px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.banner-content img {
+  width: 50%;
+  height: auto;
+}
+
+.banner-text {
+  padding: 40px;
+}
+
+.banner-text h2 {
+  font-size: 32px;
+  color: #1c1c1c;
+  margin-bottom: 10px;
+}
+
+.banner-text p {
+  font-size: 16px;
+  color: #333;
+}
+
+.btn-banner {
+  background: #1c3e6e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.btn-banner:hover {
+  background: #305ba5;
+}
+
+/* PLANOS DE SAÚDE */
+.planos {
+  background: #e9f7ec;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.planos h2 {
+  color: #004d40;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+.planos-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.plano {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 20px;
+  width: 220px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.plano h3 {
+  color: #00796b;
+  font-size: 20px;
+}
+
+.plano p {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.plano span {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 8px 0;
+}
+
+.plano button {
+  background: #00796b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.plano button:hover {
+  background: #005a4f;
+}
+
+/* ASSINATURAS */
+.assinaturas {
+  background: #fff9e6;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.assinaturas h2 {
+  color: #6b4f00;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+.assinatura-cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.assinatura {
+  background: #fff;
+  padding: 25px 20px;
+  width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.assinatura h3 {
+  color: #5c2e91;
+  margin-bottom: 10px;
+}
+
+.assinatura .preco {
+  color: #5c2e91;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.assinatura button {
+  background: #5c2e91;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.assinatura button:hover {
+  background: #452172;
+}
+
+/* SERVIÇOS */
+.servicos {
+  background: #e7f6fc;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.servicos h2 {
+  color: #004c72;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+.servicos-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.servico {
+  background: #fff;
+  padding: 25px;
+  width: 240px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.servico h3 {
+  color: #0073aa;
+  margin-bottom: 10px;
+}
+
+.servico p {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.servico button {
+  background: #0073aa;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.servico button:hover {
+  background: #005c85;
+}
+
+/* PRODUTOS */
+.produtos {
+  padding: 60px 5%;
+  text-align: center;
+}
+
+.produtos h2 {
+  color: #1c3e6e;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.produto {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.produto img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.produto .nome {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.preco-antigo {
+  text-decoration: line-through;
+  color: gray;
+  font-size: 14px;
+}
+
+.preco {
+  color: #5c2e91;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* FOOTER */
+.footer {
+  background: #f8f8f8;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #777;
+  margin-top: 40px;
+}
