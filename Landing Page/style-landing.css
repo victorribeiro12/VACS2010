@@ -109,18 +109,19 @@ body {
   align-items: center;
   background: #fff9e6;
   border-radius: 15px;
-  max-width: 1000px;
+  max-width: 1400px;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .banner-content img {
-  width: 50%;
-  height: auto;
+  width: 80%;
+  height: auto;  
 }
 
 .banner-text {
   padding: 40px;
+    margin-left: 60px;
 }
 
 .banner-text h2 {
