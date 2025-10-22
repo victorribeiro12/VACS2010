@@ -149,7 +149,7 @@ body {
     background: #305ba5;
 }
 
-/* PLANOS DE SAÚDE (NOVO ESTILO - VERDE) */
+/* PLANOS DE SAÚDE (VERDE) */
 .planos {
     background-color: #d8ead2;
     padding: 60px 0;
@@ -496,7 +496,7 @@ body {
     margin-top: 5px;
 }
 
-/* FOOTER (ESTILO MODIFICADO PARA COLUNAS) */
+/* FOOTER */
 .footer {
     background: #f8f8f8;
     padding: 40px 5%;
@@ -509,14 +509,14 @@ body {
     display: flex;
     justify-content: space-between;
     max-width: 1200px;
-    margin: 0 auto 30px; /* Adiciona margem abaixo do conteúdo e centraliza */
-    flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
+    margin: 0 auto 30px;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
 .footer-col {
-    width: 20%; /* Ajuste a largura conforme o número de colunas */
-    min-width: 150px; /* Largura mínima para mobile */
+    width: 20%;
+    min-width: 150px;
 }
 
 .footer-col h3 {
@@ -541,7 +541,7 @@ body {
 }
 
 .footer-col ul a:hover {
-    color: #5c2e91; /* Cor roxa da marca */
+    color: #5c2e91;
 }
 
 .footer-col.contato p {
@@ -565,3 +565,127 @@ body {
     border-top: 1px solid #eee;
 }
 
+/* ------------------------------------------------------------------------------------- */
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .search-bar input {
+        width: 100%;
+    }
+
+    .header-actions {
+        order: 2;
+    }
+
+    .menu ul {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 10px 20px;
+    }
+
+    .promocoes {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 20px;
+    }
+
+    .promocoes .card {
+        width: 100%;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .banner-content img {
+        width: 100%;
+    }
+
+    .banner-text {
+        padding: 20px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .planos-container,
+    .planos-assinatura-container,
+    .servicos-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .plano-card-novo,
+    .plano-assinatura-box,
+    .servico-card-novo {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .plano-assinatura-box.anual {
+        transform: translateY(0);
+    }
+
+    .grid-produtos {
+        gap: 10px;
+    }
+
+    .produto-card {
+        width: 45%;
+        padding: 10px;
+    }
+
+    .produto-nome {
+        min-height: 60px;
+    }
+
+    .footer {
+        padding: 20px 5%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-col {
+        width: 100%;
+        min-width: unset;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+    }
+
+    .footer-col:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .footer-col ul,
+    .footer-col.contato p {
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .footer-col.selos {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
