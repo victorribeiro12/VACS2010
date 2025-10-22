@@ -25,27 +25,36 @@ body {
 }
 
 .logo {
-    width: 80px;
+    width: 90px;
 }
 
 .search-bar input {
-    width: 320px;
+    width: 700px;
+    font-weight: 500;
     padding: 10px 15px;
     border-radius: 25px;
-    border: 1px solid #ccc;
+    border: 1px solid #0f0f0f;
     outline: none;
 }
 
 .header-actions {
     display: flex;
     gap: 10px;
+
 }
 
 .header-actions button {
     background: none;
     border: none;
     font-weight: 500;
+    border-radius: 1px;
     cursor: pointer;
+    font-size: 19px;
+}
+
+.header-actions button:hover{
+    background-color: wheat;
+    border-radius: 20px;
 }
 
 .login-btn {
@@ -83,7 +92,7 @@ body {
 .promocoes {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 80px;
     margin: 30px auto;
     max-width: 1000px;
 }
@@ -93,7 +102,7 @@ body {
     padding: 15px;
     border-radius: 10px;
     text-align: center;
-    width: 30%;
+    width: 40%;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
@@ -335,6 +344,10 @@ body {
     position: relative;
 }
 
+.servico img{
+    width: 20px;
+}
+
 .servicos h2 {
     color: #1c3e6e;
     margin-bottom: 30px;
@@ -401,6 +414,7 @@ body {
 .servico-card-novo button.secundario {
     background: none;
     color: #5c2e91;
+    margin-top: 5px;
     border: 1px solid #5c2e91;
 }
 
