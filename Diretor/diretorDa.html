@@ -78,13 +78,17 @@
         <!-- Card para o Gráfico de Produtividade -->
         <div class="chart-card">
             <h3>Produtividade dos Colaboradores (Últimos 6 Meses)</h3>
-            <canvas id="produtividadeChart"></canvas>
+            <div class="chart-container">
+                <canvas id="produtividadeChart"></canvas>
+            </div>
         </div>
 
         <!-- Card para o Gráfico de Funções -->
         <div class="chart-card">
             <h3>Colaboradores por Função</h3>
-            <canvas id="funcoesChart"></canvas>
+            <div class="chart-container pie-chart-container">
+                <canvas id="funcoesChart"></canvas>
+            </div>
         </div>
 
     </div>
@@ -124,7 +128,8 @@
                     data: [5, 2, 2, 7, 1], // Dados fictícios
                     backgroundColor: ['#385a64', '#9dd9eb', '#7abccb', '#c9e8f4', '#f7a7a3'],
                     hoverOffset: 4
-                }]
+                }],
+                options: { maintainAspectRatio: false }
             }
         });
 

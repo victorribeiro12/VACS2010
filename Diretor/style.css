@@ -684,9 +684,17 @@ td button {
 .chart-container {
     position: relative;
     flex-grow: 1; /* Faz o contêiner do gráfico crescer para ocupar o espaço */
-    height: 350px; /* Define uma altura base para os gráficos */
+    height: 300px; /* Define uma altura base para os gráficos */
 }
 
 .chart-card-full .chart-container {
-    height: 400px; /* Pode ter uma altura diferente se desejado */
+    height: 350px; /* Pode ter uma altura diferente se desejado */
+}
+
+/* Aumenta a altura especificamente para o gráfico de pizza */
+.pie-chart-container {
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
