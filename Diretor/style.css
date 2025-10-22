@@ -487,6 +487,7 @@ td button {
     /* Define 2 colunas de tamanhos iguais */
     grid-template-columns: 1fr 1fr; 
     gap: 20px; 
+    margin-top: 30px; /* Aumenta a distância dos botões */
     margin-bottom: 20px;
 }
 

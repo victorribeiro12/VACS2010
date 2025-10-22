@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diretor</title>
+    <title>Diretor - Dashboard</title>
+    <!-- Adicionando a biblioteca de gráficos Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -39,7 +41,7 @@
     </nav>
 <div class="main-content">
     
-    <h1>Diretor</h1>
+    <h1 class="page-title">Dashboard</h1>
     
     <div class="cards-grid">
         
@@ -63,11 +65,71 @@
             <p>Consultas Agendadas</p>
         </div>
         
-       
+    </div>
+    
     <div class="action-buttons">
         <button class="action-btn">Adicionar funcionário</button>
         <button class="action-btn">Gerar relatório</button>
         <button class="action-btn">Enviar comunicado</button>
     </div>
+    <!-- Grid para os gráficos -->
+    <div class="charts-grid">
+        
+        <!-- Card para o Gráfico de Produtividade -->
+        <div class="chart-card">
+            <h3>Produtividade dos Colaboradores (Últimos 6 Meses)</h3>
+            <canvas id="produtividadeChart"></canvas>
+        </div>
+
+        <!-- Card para o Gráfico de Funções -->
+        <div class="chart-card">
+            <h3>Colaboradores por Função</h3>
+            <canvas id="funcoesChart"></canvas>
+        </div>
+
+    </div>
     
 </div>
+
+<script>
+    // Espera o DOM carregar para criar os gráficos
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Gráfico 1: Produtividade (Gráfico de Montanha/Área) ---
+        const ctxProdutividade = document.getElementById('produtividadeChart').getContext('2d');
+        new Chart(ctxProdutividade, {
+            type: 'line', // O tipo 'line' com 'fill: true' cria o efeito de montanha
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+                datasets: [{
+                    label: 'Nível de Produtividade',
+                    data: [65, 72, 80, 75, 85, 92], // Dados fictícios
+                    backgroundColor: 'rgba(157, 217, 235, 0.5)', // Cor do preenchimento
+                    borderColor: 'rgba(56, 90, 100, 1)', // Cor da linha
+                    borderWidth: 2,
+                    fill: true, // Preenche a área abaixo da linha
+                    tension: 0.3 // Deixa a linha um pouco curva
+                }]
+            }
+        });
+
+        // --- Gráfico 2: Funções (Gráfico de Pizza) ---
+        const ctxFuncoes = document.getElementById('funcoesChart').getContext('2d');
+        new Chart(ctxFuncoes, {
+            type: 'pie',
+            data: {
+                labels: ['Veterinários', 'Secretárias', 'Estagiários', 'Voluntários', 'Gerência'],
+                datasets: [{
+                    label: 'Quantidade',
+                    data: [4, 2, 3, 2, 1], // Dados fictícios
+                    backgroundColor: ['#385a64', '#9dd9eb', '#7abccb', '#c9e8f4', '#f7a7a3'],
+                    hoverOffset: 4
+                }]
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
