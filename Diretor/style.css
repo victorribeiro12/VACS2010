@@ -71,7 +71,6 @@ nav {
     flex-direction: row;
     padding: 10px;
     padding-right:20px;
-    margin-right: 1160px;
 }
 .perfil{
     text-align: end;
@@ -309,6 +308,20 @@ body {
     padding: 5px;
     width: 100%;
     font-size: 14px;
+}
+
+/* Estilo para o botão de ícone de busca */
+.search-icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto do input */
+    color: #777; /* Cor do ícone */
+    font-size: 16px; /* Tamanho do ícone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 3. Botão de Adicionar Funcionário */
