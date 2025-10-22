@@ -496,12 +496,72 @@ body {
     margin-top: 5px;
 }
 
-/* FOOTER */
+/* FOOTER (ESTILO MODIFICADO PARA COLUNAS) */
 .footer {
     background: #f8f8f8;
-    text-align: center;
-    padding: 20px;
+    padding: 40px 5%;
     font-size: 14px;
     color: #777;
     margin-top: 40px;
 }
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto 30px; /* Adiciona margem abaixo do conteúdo e centraliza */
+    flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
+    gap: 20px;
+}
+
+.footer-col {
+    width: 20%; /* Ajuste a largura conforme o número de colunas */
+    min-width: 150px; /* Largura mínima para mobile */
+}
+
+.footer-col h3 {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul a {
+    text-decoration: none;
+    color: #777;
+}
+
+.footer-col ul a:hover {
+    color: #5c2e91; /* Cor roxa da marca */
+}
+
+.footer-col.contato p {
+    margin-bottom: 5px;
+}
+
+.social-links {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.footer-col.selos img {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
