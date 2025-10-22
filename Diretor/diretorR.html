@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diretor</title>
+    <title>Diretor - Relatórios</title>
+    <!-- Adicionando a biblioteca de gráficos Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -106,21 +108,82 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+           </table>
     </div>
 
-    <h2 class="section-title">Consultas este mês</h2>
+    <h2 class="section-title">Estatísticas de Pacientes</h2>
 
     <div class="charts-grid">
         
+        <!-- Card para o Gráfico de Pets por Tamanho -->
         <div class="chart-card">
-            <div class="chart-placeholder pie-chart">...</div> 
+            <h3>Novos Pacientes por Mês (dividido por porte)</h3>
+            <canvas id="petsPorTamanhoChart"></canvas>
         </div>
         
+        <!-- Card para o Gráfico de Total de Pacientes -->
         <div class="chart-card">
-            <div class="chart-placeholder line-chart">...</div>
+            <h3>Crescimento Total de Pacientes</h3>
+            <canvas id="totalPacientesChart"></canvas>
         </div>
         
     </div>
     
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Gráfico 1: Pets por Mês e Tamanho (Barras Empilhadas) ---
+        const ctxPetsPorTamanho = document.getElementById('petsPorTamanhoChart').getContext('2d');
+        new Chart(ctxPetsPorTamanho, {
+            type: 'bar',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril'],
+                datasets: [
+                    {
+                        label: 'Pequeno Porte',
+                        data: [20, 25, 22, 30], // Dados fictícios
+                        backgroundColor: '#9dd9eb',
+                    },
+                    {
+                        label: 'Médio Porte',
+                        data: [15, 18, 20, 25], // Dados fictícios
+                        backgroundColor: '#7abccb',
+                    },
+                    {
+                        label: 'Grande Porte',
+                        data: [10, 12, 11, 15], // Dados fictícios
+                        backgroundColor: '#385a64',
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: { stacked: true }, // Empilha as barras no eixo X
+                    y: { stacked: true }  // Empilha as barras no eixo Y
+                }
+            }
+        });
+
+        // --- Gráfico 2: Total de Pacientes (Linha) ---
+        const ctxTotalPacientes = document.getElementById('totalPacientesChart').getContext('2d');
+        new Chart(ctxTotalPacientes, {
+            type: 'line',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+                datasets: [{
+                    label: 'Total de Pacientes na Clínica',
+                    data: [150, 162, 175, 190, 210, 225], // Dados fictícios
+                    borderColor: '#f7a7a3',
+                    backgroundColor: 'rgba(247, 167, 163, 0.2)',
+                    tension: 0.1,
+                    fill: true
+                }]
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
