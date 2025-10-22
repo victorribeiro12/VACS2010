@@ -6,6 +6,10 @@
     font-family: 'Fredoka', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: #fff;
     color: #333;
@@ -139,19 +143,24 @@ body {
     margin-bottom: 10px;
 }
 
-.banner-text p {
-    font-size: 16px;
-    color: #333;
+.banner-text {
+    padding: 40px 20px;
+    margin-left: 0; /* centraliza no mobile */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* ou center, se quiser centralizado */
+    gap: 20px; /* espaçamento entre texto e botão */
 }
 
 .btn-banner {
     background: #1c3e6e;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 25px;
     border-radius: 6px;
-    margin-top: 15px;
     cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 .btn-banner:hover {
@@ -627,12 +636,18 @@ body {
         width: 100%;
     }
 
+    .banner-text a{
+        text-decoration: none;
+        color: white;
+    }
+
     .banner-text {
         padding: 20px;
         margin-left: 0;
         text-align: center;
+        
     }
-
+    
     .planos-container,
     .planos-assinatura-container,
     .servicos-container {
