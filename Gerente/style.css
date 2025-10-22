@@ -406,15 +406,7 @@ main > div:nth-of-type(2) label {
     color: var(--color-text-dark);
     cursor: pointer;
 }
-ê forneceu o CSS completo para a Topbar e Sidebar (parte azul) e precisa do CSS da área de conteúdo branca para complementar a tela atual, que é a **Dashboard** (com cards de métricas e pendências, conforme `image_5e9518.png`).
 
-Este código se concentra exclusivamente na estilização dos elementos dentro da tag `<main>` para a tela do Dashboard, garantindo que ele se ajuste perfeitamente às suas dimensões de 60px de altura na Topbar e 240px de largura na Sidebar.
-
-### Código CSS para a Área Branca (Dashboard)
-
-**Adicione este código ao final do seu arquivo `style.css`:**
-
-```css
 /* ================================================= */
 /* VARIÁVEIS DE CORES PARA A ÁREA BRANCA */
 /* *Mantendo a consistência visual com o seu código* */
@@ -549,12 +541,3 @@ main > div:nth-of-type(2) label {
     color: var(--color-text-dark);
     cursor: pointer;
 }
-```
-
-
-
-
-
-
-
-Ent
