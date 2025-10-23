@@ -1,5 +1,9 @@
 <?php
-require_once '/Php/db.php'; // Inclui o arquivo de conexão com o banco de dados
+require_once '/* =================================
+   ESTRUTURA BÁSICA (Layout Principal)
+   ================================= */
+
+db.php'; // Inclui o arquivo de conexão com o banco de dados
 // Habilita o report de erros do MySQLi como exceções
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
