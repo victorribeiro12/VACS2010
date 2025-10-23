@@ -1,111 +1,166 @@
-   <?php
-// processa_cadastro.php - versão final integrada à tabela 'usuarios' com redirecionamento para index.php
+<?php
+session_start();
 
-require_once 'db.php'; // Inclui a conexão com o banco
+// Se o usuário já está logado, redireciona para a página principal
+if (isset($_SESSION['usuario_id'])) {
+    header("Location: index.php");
+    exit();
+}
 
-// --- MAPA DE DOMÍNIOS PARA DETECÇÃO AUTOMÁTICA DE PERFIL ---
-const DOMINIOS = [
-    'diretor.org'     => 'diretor',
-    'gerente.org'     => 'gerente',
-    'veterinario.org' => 'veterinario',
-    'voluntario.org'  => 'voluntario',
-    'secretaria.org'  => 'secretaria'
+require_once 'db.php';
+
+$erro_login = '';
+
+// Mapa de redirecionamento por tipo de usuário
+const PAGINAS_PERFIL = [
+    'diretor'     => '../Diretor/diretorDa.html',
+    'gerente'     => '../Gerente/gerente.html',
+    'veterinario' => '../Veterinario/veterinario.html', // Ajuste este caminho se o arquivo tiver outro nome
+    'secretaria'  => '../Secretaria/Secretaria.html',
+    'voluntario'  => '../Voluntario/voluntario.html', // Ajuste este caminho se o arquivo tiver outro nome
+    'default'     => 'index.php' // Página padrão
 ];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = strtolower(trim($_POST['email'] ?? ''));
+    $senha = trim($_POST['senha'] ?? '');
 
-    // --- COLETA E TRATA OS DADOS DO FORMULÁRIO ---
-    $nome           = mysqli_real_escape_string($conexao, $_POST['nome'] ?? '');
-    $email          = mysqli_real_escape_string($conexao, strtolower($_POST['email'] ?? ''));
-    $endereco       = mysqli_real_escape_string($conexao, $_POST['endereco'] ?? '');
-    $telefone       = mysqli_real_escape_string($conexao, $_POST['telefone'] ?? '');
-    $data_nascimento= mysqli_real_escape_string($conexao, $_POST['data_nascimento'] ?? '');
-    $senha          = mysqli_real_escape_string($conexao, $_POST['senha'] ?? '');
-
-    if (empty($nome) || empty($email) || empty($senha)) {
-        die("Erro: Nome, e-mail e senha são obrigatórios.");
-    }
-
-    // --- DETECTA TIPO DE USUÁRIO PELO DOMÍNIO ---
-    $dominio_email = substr(strrchr($email, "@"), 1);
-    $tipo_usuario = DOMINIOS[$dominio_email] ?? null;
-
-    if ($tipo_usuario === null) {
-        // Redireciona para index.php se o domínio não for válido
-        header("Location: index.php");
-        exit();
-    }
-
-    // --- HASH DA SENHA ---
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
-    // --- VERIFICA SE O E-MAIL JÁ ESTÁ CADASTRADO ---
-    $sql_verifica = "SELECT id FROM usuarios WHERE email = ?";
-    $stmt_verifica = $conexao->prepare($sql_verifica);
-    $stmt_verifica->bind_param("s", $email);
-    $stmt_verifica->execute();
-    $stmt_verifica->store_result();
-
-    if ($stmt_verifica->num_rows > 0) {
-        echo "Erro: Este e-mail já está cadastrado. <a href='../cadastro.php'>Tente novamente</a>.";
+    if (empty($email) || empty($senha)) {
+        $erro_login = "E-mail e senha são obrigatórios.";
     } else {
-        // --- INSERE NOVO USUÁRIO ---
-        $sql_insere = "INSERT INTO usuarios (nome, email, endereco, telefone, data_nascimento, senha, tipo_usuario)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt_insere = $conexao->prepare($sql_insere);
-        $stmt_insere->bind_param(
-            "sssssss",
-            $nome,
-            $email,
-            $endereco,
-            $telefone,
-            $data_nascimento,
-            $senha_hash,
-            $tipo_usuario
-        );
+        $conexao = getConexao();
+        try {
+            $sql = "SELECT id, nome, senha, tipo_usuario FROM usuarios WHERE email = ? LIMIT 1";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $usuario = $resultado->fetch_assoc();
 
-        if ($stmt_insere->execute()) {
-            echo "Cadastro realizado com sucesso! <a href='../login.php'>Faça o login agora</a>.";
-        } else {
-            echo "Erro ao cadastrar: " . $stmt_insere->error;
+            // Verifica se o usuário existe e se a senha está correta
+            if ($usuario && password_verify($senha, $usuario['senha'])) {
+                // Login bem-sucedido: armazena dados na sessão
+                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['usuario_tipo'] = $usuario['tipo_usuario'];
+
+                // Regenera o ID da sessão para prevenir session fixation
+                session_regenerate_id(true);
+
+                // Redireciona para a página do perfil correspondente
+                $pagina_destino = PAGINAS_PERFIL[$usuario['tipo_usuario']] ?? PAGINAS_PERFIL['default'];
+                header("Location: " . $pagina_destino);
+                exit();
+            } else {
+                $erro_login = "E-mail ou senha inválidos.";
+            }
+            $stmt->close();
+        } catch (mysqli_sql_exception $e) {
+            error_log("Erro de login: " . $e->getMessage());
+            $erro_login = "Ocorreu um erro no servidor. Tente novamente.";
+        } finally {
+            if ($conexao) {
+                $conexao->close();
+            }
         }
-
-        $stmt_insere->close();
     }
-
-    $stmt_verifica->close();
-    $conexao->close();
-
-} else {
-    header("Location: cadastro.php");
-    exit();
 }
 ?>
-
-   
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Login de Usuário</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f2f2f2; }
-        .container { max-width: 400px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        input, button { width: 100%; padding: 10px; margin: 5px 0; border-radius: 4px; border: 1px solid #ccc; }
-        button { background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-        button:hover { background-color: #45a049; }
-        h2 { text-align: center; }
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            background-color: #eaf6fa; /* Um azul bem claro para o fundo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .login-container h2 {
+            color: #385a64; /* Tom de azul escuro do tema */
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; /* Garante que o padding não aumente a largura */
+            font-size: 16px;
+        }
+        .login-container input:focus {
+            border-color: #9dd9eb; /* Cor do tema no foco */
+            outline: none;
+            box-shadow: 0 0 5px rgba(157, 217, 235, 0.5);
+        }
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #385a64; /* Azul escuro do tema */
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .login-container button:hover {
+            background-color: #2c464f; /* Tom mais escuro no hover */
+        }
+        .error-message {
+            color: #d9534f; /* Vermelho para erros */
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .register-link a {
+            color: #385a64; /* Azul escuro do tema */
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="login-container">
         <h2>Login</h2>
+        <?php if (!empty($erro_login)): ?>
+            <p class="error-message"><?php echo htmlspecialchars($erro_login); ?></p>
+        <?php endif; ?>
         <form action="login.php" method="POST">
             <input type="email" name="email" placeholder="E-mail institucional" required>
             <input type="password" name="senha" placeholder="Senha" required>
             <button type="submit">Entrar</button>
         </form>
-        <p style="text-align:center;">Não tem uma conta? <a href="cadastro.php">Cadastre-se</a></p>
+        <p class="register-link">Não tem uma conta? <a href="./cadastro.php">Cadastre-se</a></p>
     </div>
 </body>
 </html>

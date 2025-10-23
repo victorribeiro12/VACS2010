@@ -1,5 +1,9 @@
 <?php
-require_once '/Php/db.php'; // Inclui o arquivo de conexão com o banco de dados
+require_once '/* =================================
+   ESTRUTURA BÁSICA (Layout Principal)
+   ================================= */
+
+db.php'; // Inclui o arquivo de conexão com o banco de dados
 // Habilita o report de erros do MySQLi como exceções
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -71,7 +75,6 @@ try {
             $dados = $resultado->fetch_all(MYSQLI_ASSOC);
             
             $stmt->close();
-            $conexao->close();
             enviarResposta($dados); // Envia os resultados da busca
             break;
 
@@ -108,7 +111,6 @@ try {
             }
             
             $stmt->close();
-            $conexao->close();
             break;
 
         // --- AÇÃO: EXCLUIR (Mantida) ---
@@ -134,38 +136,67 @@ try {
             }
             
             $stmt->close();
-            $conexao->close();
             break;
 
-        // --- AÇÃO: VISUALIZAR (CORRIGIDA PARA BUSCAR PELO NOME) ---
+        // --- AÇÃO: VISUALIZAR (CORRIGIDA PARA BUSCAR PELO ID) ---
         case 'visualizar':
-            // Agora pega o parâmetro 'nome' da URL (se o JS chamar com o nome)
-            $nomeParaVer = $_GET['nome'] ?? ''; 
-            
-            // ATENÇÃO: Se o JS estiver chamando com o ID (como no exercício anterior),
-            // você deve mudar o JS OU MUDAR O PARÂMETRO DA URL AQUI.
-            // Para manter o PHP funcional com a requisição de nome:
-            if (empty($nomeParaVer)) {
-                enviarResposta(['success' => false, 'message' => 'Nome do funcionário ausente.'], 400);
+            // Pega o parâmetro 'id' da URL, que é o correto.
+            $idParaVer = $_GET['id'] ?? 0;
+
+            if ($idParaVer <= 0) {
+                enviarResposta(['success' => false, 'message' => 'ID do funcionário ausente ou inválido.'], 400);
             }
 
-            // Seleciona TODAS as colunas, buscando pelo NOME EXATO
-            $sql = "SELECT * FROM $tabela_db WHERE $col_nome = ?"; 
+            // Seleciona todas as colunas, buscando pelo ID
+            $sql = "SELECT * FROM $tabela_db WHERE $col_id = ?";
             $stmt = $conexao->prepare($sql);
-            $stmt->bind_param("s", $nomeParaVer); // "s" = parâmetro do tipo string
+            $stmt->bind_param("i", $idParaVer); // "i" para integer
             $stmt->execute();
-            
+
             $resultado = $stmt->get_result();
             $dados = $resultado->fetch_assoc();
-            
+
             if ($dados) {
                 enviarResposta($dados);
             } else {
                 enviarResposta(['success' => false, 'message' => 'Funcionário não encontrado.'], 404);
             }
-            
+
             $stmt->close();
-            $conexao->close();
+            break;
+
+        // --- AÇÃO: ATUALIZAR (NOVO) ---
+        case 'atualizar':
+            $dadosJSON = file_get_contents('php://input');
+            $funcionario = json_decode($dadosJSON, true);
+
+            $idParaAtualizar = $funcionario['id'] ?? 0;
+
+            if ($idParaAtualizar <= 0 || empty($funcionario['nome'])) {
+                enviarResposta(['success' => false, 'message' => 'Dados inválidos ou ID/nome ausente.'], 400);
+            }
+
+            $sql = "UPDATE $tabela_db 
+                    SET $col_nome = ?, $col_funcao = ?, $col_setor = ?, $col_telefone = ?
+                    WHERE $col_id = ?";
+            
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param("ssssi", 
+                $funcionario['nome'], 
+                $funcionario['funcao'], 
+                $funcionario['setor'], 
+                $funcionario['telefone'],
+                $idParaAtualizar
+            );
+            $stmt->execute();
+
+            if ($stmt->affected_rows > 0) {
+                enviarResposta(['success' => true, 'message' => 'Funcionário atualizado com sucesso!']);
+            } else {
+                enviarResposta(['success' => false, 'message' => 'Nenhuma alteração foi feita ou funcionário não encontrado.'], 200); // 200 OK, mas sem alteração
+            }
+
+            $stmt->close();
             break;
 
         // --- AÇÃO INVÁLIDA (Mantida) ---
@@ -173,6 +204,9 @@ try {
             enviarResposta(['success' => false, 'message' => 'Ação desconhecida.'], 400);
             break;
     }
+
+    // Fecha a conexão em um único lugar, após a ação ser concluída.
+    $conexao->close();
 
 } catch (mysqli_sql_exception $e) {
     // Captura qualquer erro de banco de dados
