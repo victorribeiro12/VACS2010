@@ -1,34 +1,30 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="PT-BR">
 
 <head>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diretor</title>
+    <title>Diretor - Financeiro</title>
+    <!-- Adicionando a biblioteca de gráficos Chart.js para padronização -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-
     <nav>
         <div class="left-topbar">
-        <a href="index.html "class="logo">
-            <img class="logo" src="img/Rectangle.png" alt="" width="100px" height="70px">
-        </a>
+            <a href="index.html" class="logo">
+                <img class="logo" src="img/Rectangle.png" alt="" width="100px" height="70px">
+            </a>
         </div>
-       <div class="direita-topbar">
-    
-    <a href="index.html" class="profile-link">
-        
-        <img class="perfil" src="img/Frame 4.png" alt="Perfil" width="50px" height="50px">
-        
-     
-    </a>
-    
-
-    
-</div>
-</nav>
+        <div class="direita-topbar">
+            <a href="index.html" class="profile-link">
+                <img class="perfil" src="img/Frame 4.png" alt="Perfil" width="50px" height="50px">
+                <p>Nome do Diretor</p>
+            </a>
+            <!-- Adicione outros elementos da direita da topbar aqui, se houver -->
+        </div>
+    </nav>
     <nav class="sidebar">
         <ul>
           <li><a href="diretorDa.html"> <img src="img/Performance Macbook.png"  alt="" height=""  width="">Dashbord</a></li>
@@ -40,68 +36,209 @@
             <li><a href="diretorC.html"><img src="img/Settings.png"  alt="" height=""  width="">Configurações</a></li>
         </ul>
     </nav>
+    <div class="main-content">
+        <h1 class="page-title">Dashboard Financeiro</h1>
 
-  <!-- Conteúdo Principal -->
-    <main class="main-content">
-        <h1 class="page-title text-3xl font-bold text-gray-800 mb-6">Lista de Funcionários</h1>
-
-        <!-- Seção de Busca e Botões (Toolbar) -->
-        <div class="toolbar">
-            
-            <div class="search-input-group">
-                <input type="text" id="inputBusca" placeholder="Buscar por nome do funcionário..."
-                    class="search-input"
-                    onkeyup="if (event.key === 'Enter') buscarDados();"
-                >
-                <button id="btnBuscar">
-                    Buscar Dados
-                </button>
+        <!-- Seção de KPIs Principais -->
+        <div class="kpi-grid">
+            <!-- KPIs de Receita -->
+            <div class="kpi-card">
+                <h3 class="kpi-title">Receitas</h3>
+                <div class="kpi-main-value" id="receitaAtual">R$ 0,00</div>
+                <div class="kpi-sub-values">
+                    <span>Meta: <span id="receitaMeta">R$ 0,00</span></span>
+                    <span class="kpi-percentage" id="receitaPercentual">0%</span>
+                </div>
             </div>
-
-            <button id="btnAdd">
-                + Adicionar Novo
-            </button>
-        </div>
-
-        <!-- Tabela de Resultados -->
-        <div class="table-container">
-            <table id="tabelaGeral">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Cidade</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaFuncionarios">
-                    <!-- O conteúdo será preenchido pelo JavaScript -->
-                    <tr>
-                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                            Carregando dados...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Modal de Mensagem -->
-        <div id="modalMessage" class="modal-overlay hidden">
-            <div class="modal-content">
-                <h3 id="modalTitle" class="text-xl font-bold mb-3">Mensagem</h3>
-                <p id="modalBody" class="text-gray-700 mb-6"></p>
-                <button onclick="document.getElementById('modalMessage').classList.add('hidden')"
-                    class="modal-close-btn">
-                    Fechar
-                </button>
+            <!-- KPIs de Despesa -->
+            <div class="kpi-card">
+                <h3 class="kpi-title">Despesas</h3>
+                <div class="kpi-main-value" id="despesaAtual">R$ 0,00</div>
+                <div class="kpi-sub-values">
+                    <span>Meta: <span id="despesaMeta">R$ 0,00</span></span>
+                    <span class="kpi-percentage" id="despesaPercentual">0%</span>
+                </div>
+            </div>
+            <!-- KPIs de Resultado -->
+            <div class="kpi-card">
+                <h3 class="kpi-title">Resultado Líquido</h3>
+                <div class="kpi-main-value" id="resultadoAtual">R$ 0,00</div>
+                <div class="kpi-sub-values">
+                    <span>Meta: <span id="resultadoMeta">R$ 0,00</span></span>
+                    <span class="kpi-percentage" id="resultadoPercentual">0%</span>
+                </div>
+            </div>
+            <!-- Contas a Receber/Pagar -->
+            <div class="kpi-card kpi-small">
+                <div class="kpi-sub-item">
+                    <span>Contas a Receber</span>
+                    <strong id="contasReceber">R$ 0,00</strong>
+                </div>
+                <div class="kpi-sub-item">
+                    <span>Contas a Pagar</span>
+                    <strong id="contasPagar">R$ 0,00</strong>
+                </div>
             </div>
         </div>
 
-    </main>
+        <!-- Seção de Gráficos Principais -->
+        <div class="finance-charts-grid">
+            <div class="chart-card">
+                <h3>Receitas (Real vs. Meta)</h3>
+                <div class="chart-container">
+                    <canvas id="receitasChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Composição das Receitas</h3>
+                <div class="chart-container">
+                    <canvas id="composicaoReceitasChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Despesas (Real vs. Meta)</h3>
+                <div class="chart-container">
+                    <canvas id="despesasChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Composição das Despesas</h3>
+                <div class="chart-container">
+                    <canvas id="composicaoDespesasChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Gráfico de Saldo de Caixa -->
+        <div class="chart-card-full">
+            <h3>Evolução do Saldo de Caixa</h3>
+            <div class="chart-container">
+                <canvas id="saldoCaixaChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Funções Auxiliares ---
+            const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+            const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            // --- Geração de Dados Aleatórios ---
+            const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+            const receitaRealData = Array.from({ length: 12 }, () => random(12000, 25000));
+            const receitaMetaData = Array.from({ length: 12 }, () => random(14000, 22000));
+            const despesaRealData = Array.from({ length: 12 }, () => random(8000, 15000));
+            const despesaMetaData = Array.from({ length: 12 }, () => random(9000, 14000));
+            const saldoCaixaData = Array.from({ length: 12 }, (_, i) => random(30000, 80000) + (i * 2000));
+
+            // --- Atualização dos KPIs ---
+            const receitaAtual = receitaRealData.reduce((a, b) => a + b, 0);
+            const receitaMeta = receitaMetaData.reduce((a, b) => a + b, 0);
+            document.getElementById('receitaAtual').textContent = formatCurrency(receitaAtual);
+            document.getElementById('receitaMeta').textContent = formatCurrency(receitaMeta);
+            const receitaPercentual = ((receitaAtual / receitaMeta) * 100);
+            document.getElementById('receitaPercentual').textContent = `${receitaPercentual.toFixed(0)}%`;
+            document.getElementById('receitaPercentual').style.backgroundColor = receitaPercentual >= 100 ? '#e0f2f1' : '#ffe0e0';
+            document.getElementById('receitaPercentual').style.color = receitaPercentual >= 100 ? '#00796b' : '#d32f2f';
+
+            const despesaAtual = despesaRealData.reduce((a, b) => a + b, 0);
+            const despesaMeta = despesaMetaData.reduce((a, b) => a + b, 0);
+            document.getElementById('despesaAtual').textContent = formatCurrency(despesaAtual);
+            document.getElementById('despesaMeta').textContent = formatCurrency(despesaMeta);
+            const despesaPercentual = ((despesaAtual / despesaMeta) * 100);
+            document.getElementById('despesaPercentual').textContent = `${despesaPercentual.toFixed(0)}%`;
+            document.getElementById('despesaPercentual').style.backgroundColor = despesaPercentual <= 100 ? '#e0f2f1' : '#ffe0e0';
+            document.getElementById('despesaPercentual').style.color = despesaPercentual <= 100 ? '#00796b' : '#d32f2f';
+
+            const resultadoAtual = receitaAtual - despesaAtual;
+            const resultadoMeta = receitaMeta - despesaMeta;
+            document.getElementById('resultadoAtual').textContent = formatCurrency(resultadoAtual);
+            document.getElementById('resultadoMeta').textContent = formatCurrency(resultadoMeta);
+            const resultadoPercentual = ((resultadoAtual / resultadoMeta) * 100);
+            document.getElementById('resultadoPercentual').textContent = `${resultadoPercentual.toFixed(0)}%`;
+            document.getElementById('resultadoPercentual').style.backgroundColor = resultadoPercentual >= 100 ? '#e0f2f1' : '#ffe0e0';
+            document.getElementById('resultadoPercentual').style.color = resultadoPercentual >= 100 ? '#00796b' : '#d32f2f';
+
+            document.getElementById('contasReceber').textContent = formatCurrency(random(5000, 12000));
+            document.getElementById('contasPagar').textContent = formatCurrency(random(2000, 8000));
+
+            // --- Configuração dos Gráficos ---
+            const chartColors = {
+                receitaReal: '#36A2EB', // Azul
+                receitaMeta: '#FF6384', // Rosa
+                despesaReal: '#FF9F40', // Laranja
+                despesaMeta: '#FFCD56', // Amarelo
+                saldo: '#4BC0C0', // Verde Água
+                composicaoReceita: ['#36A2EB', '#4BC0C0', '#FFCE56', '#E7E9ED'],
+                composicaoDespesa: ['#FF6384', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB']
+            };
+
+            // Gráfico de Receitas (Real vs. Meta)
+            new Chart(document.getElementById('receitasChart'), {
+                type: 'bar',
+                data: {
+                    labels: meses,
+                    datasets: [
+                        { type: 'line', label: 'Meta', data: receitaMetaData, borderColor: chartColors.receitaMeta, fill: false, tension: 0.2, borderWidth: 2 },
+                        { type: 'bar', label: 'Real', data: receitaRealData, backgroundColor: chartColors.receitaReal }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Gráfico de Composição de Receitas
+            new Chart(document.getElementById('composicaoReceitasChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Consultas', 'Vacinas', 'Cirurgias', 'Produtos'],
+                    datasets: [{ data: [random(30, 50), random(15, 25), random(10, 20), random(5, 15)], backgroundColor: chartColors.composicaoReceita }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Gráfico de Despesas (Real vs. Meta)
+            new Chart(document.getElementById('despesasChart'), {
+                type: 'bar',
+                data: {
+                    labels: meses,
+                    datasets: [
+                        { type: 'line', label: 'Meta', data: despesaMetaData, borderColor: chartColors.despesaMeta, fill: false, tension: 0.2, borderWidth: 2 },
+                        { type: 'bar', label: 'Real', data: despesaRealData, backgroundColor: chartColors.despesaReal }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Gráfico de Composição de Despesas
+            new Chart(document.getElementById('composicaoDespesasChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Salários', 'Aluguel', 'Fornecedores', 'Marketing', 'Outros'],
+                    datasets: [{ data: [random(30, 40), random(20, 30), random(15, 25), random(5, 10), random(5, 10)], backgroundColor: chartColors.composicaoDespesa }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Gráfico de Saldo de Caixa
+            new Chart(document.getElementById('saldoCaixaChart'), {
+                type: 'line',
+                data: {
+                    labels: meses,
+                    datasets: [{
+                        label: 'Saldo de Caixa',
+                        data: saldoCaixaData,
+                        borderColor: chartColors.saldo,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        });
+    </script>
     
-    <!-- LIGAÇÃO COM O ARQUIVO DE LÓGICA EXTERNO -->
-    <script src="diretor.js"></script>
 </body>
 </html>
-
