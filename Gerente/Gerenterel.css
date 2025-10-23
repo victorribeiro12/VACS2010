@@ -1,3 +1,4 @@
+@import url('Gerentefunc.css');
 :root {
     /* Cores do Projeto */
     --color-sidebar-bg: #9dd9eb;
@@ -16,163 +17,6 @@
     --topbar-height: 60px;
 }
 
-/* Reset básico para evitar margens e paddings indesejados */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* CORREÇÃO CRÍTICA DO LAYOUT: Posiciona a MAIN corretamente */
-body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background-color: var(--color-light-bg);
-    /* Cria o espaço para a topbar e sidebar */
-    padding-top: var(--topbar-height); 
-    padding-left: var(--sidebar-width); 
-    display: block; 
-    overflow-x: hidden; 
-    /* Transição suave ao mostrar/esconder a sidebar (para mobile) */
-    transition: padding-left 0.3s ease; 
-}
-
-/* Aprimoramento de Acessibilidade: Foco visível */
-a:focus-visible, 
-button:focus-visible, 
-input:focus-visible,
-select:focus-visible {
-    outline: 2px solid var(--color-active-blue);
-    outline-offset: 2px;
-    border-radius: 3px;
-}
-
-
-/* ================================================= */
-/* 1. TOPBAR (nav) - PARTE AZUL SUPERIOR */
-/* ================================================= */
-
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--topbar-height);
-    background-color: var(--color-sidebar-bg);
-    display: flex;
-    justify-content: space-between; /* Correto: espaça logo e perfil */
-    align-items: center;
-    padding: 0 20px;
-    z-index: 1000; 
-}
-
-.left-topbar {
-    display: flex;
-    align-items: center;
-    /* margin-right: 1160px; foi REMOVIDO (era um bug) */
-}
-
-.direita-topbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px; 
-    padding: 10px 0;
-}
-
-/* Estilos para o Link de Perfil (<a>) */
-.profile-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #000;
-}
-
-/* Estilos para a Imagem de Perfil */
-.profile-link img.perfil {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 2px;
-}
-
-/* Estilos para o Nome */
-.profile-link p {
-    color: rgb(0, 0, 0);
-    font-size: 12px;
-    margin: 0;
-}
-
-/* ================================================= */
-/* 2. SIDEBAR - PARTE AZUL LATERAL */
-/* ================================================= */
-
-.sidebar {
-    position: fixed;
-    top: var(--topbar-height); 
-    left: 0;
-    width: var(--sidebar-width);
-    height: calc(100vh - var(--topbar-height));
-    background-color: var(--color-sidebar-bg);
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Alinha o conteúdo no topo */
-    z-index: 999; 
-    padding-left: 0;
-    padding-right: 0;
-    transition: transform 0.3s ease; /* Para responsividade */
-}
-
-.sidebar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-/* APRIOMORAMENTO (Hover Suave): 
-   Adiciona o espaçamento lateral aqui, no 'li' */
-.sidebar ul li {
-    margin-bottom: 5px;
-    padding: 0 10px; /* Controla o espaçamento das bordas */
-}
-
-/* Estilo dos Links */
-.sidebar ul li a {
-    display: flex; 
-    align-items: center; 
-    padding: 10px; /* Padding interno */
-    text-decoration: none;
-    color: var(--color-sidebar-link); 
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.2s;
-    border-radius: 5px; /* Bordas arredondadas para todos */
-}
-
-/* Estilo do item ATIVO */
-.sidebar ul li a.active {
-    background-color: white; 
-    color: #000000; 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
-    /* 'margin: 0 10px;' removido daqui */
-}
-
-/* Efeito ao passar o mouse (com :focus para acessibilidade) */
-.sidebar ul li a:not(.active):hover,
-.sidebar ul li a:not(.active):focus {
-    background-color: #e9e9e9; 
-    /* 'margin: 0 10px;' removido daqui para evitar o "pulo" */
-}
-
-/* Ajuste dos Ícones dentro da Sidebar */
-.sidebar img {
-    height: 20px;
-    width: 20px;
-    margin-right: 10px; 
-    padding: 0; 
-    vertical-align: middle; 
-}
 
 /* ================================================= */
 /* 3. ÁREA PRINCIPAL DE CONTEÚDO (main) - PARTE BRANCA */
@@ -255,6 +99,39 @@ main > h2 {
     overflow: hidden; 
     margin-bottom: 40px;
 }
+/* Estilo para tabelas padrão (se não usar a versão com grid) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+thead th {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    border-bottom: 2px solid var(--color-border-light);
+}
+
+tbody td {
+    padding: 15px 20px;
+    color: var(--color-text-dark);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #f1faff;
+}
+
+
+/* As classes abaixo são para uma tabela customizada com GRID.
+   Se estiver usando <table>, elas não serão aplicadas. */
 
 /* Garante o display: grid para o alinhamento das colunas */
 .table-header,
@@ -460,4 +337,3 @@ main > h2 {
     }
 
 }
-

@@ -2,7 +2,7 @@
 <html lang="PT-BR">
 
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Gerenterel.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerente</title>
@@ -11,12 +11,12 @@
 <body>
 
     <nav>
-        <div class="left-topbar">
+        <div class="direita-topbar">
         <a href="index.html "class="logo">
             <img class="logo" src="img/Rectangle.png" alt="" width="100px" height="70px">
         </a>
         </div>
-       <div class="direita-topbar">
+       <div class="left-topbar">
     
     <a href="index.html" class="profile-link">
         
@@ -38,73 +38,61 @@
         </ul>
     </nav>
     <main>
-    <h2>Relatorios</h2>
-        <h2>Funcionarios</h2>
+        <!-- Título da Página -->
+        <h2>Relatórios</h2>
 
-    <div>
-        <input type="text" placeholder="Busca">
-        <button>Gerar novo</button>
-    </div>
+        <!-- Controles de Busca e Ação -->
         <div class="report-controls">
             <div class="search-box">
-                <input type="text" id="inputBusca" class="search-input" placeholder="Buscar funcionário">
+                <input type="text" id="inputBusca" class="search-input" placeholder="Buscar em relatórios...">
             </div>
-            <button id="btnBuscar" class="action-button primary">Buscar</button>
-            <button id="btnAdd" class="action-button primary">Adicionar</button>
+            <button class="action-button primary">Gerar Novo</button>
         </div>
 
-    itar</button></td>
-            </tr>
-            <tr>
-                <td>Max</td>
-                <td>Persa</td>
-                <td>3 anos</td>
-                <td>Maria Souza</td>
-                <td><button>Ed<table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Especie</th>
-                <th>Idade</th>
-                <th>Responsável</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Bella</td>
-                <td>Golden Retriever</td>
-                <td>5 anos</td>
-                <td>João Silva</td>
-                <td><button>Editar</button></td>
-            </tr>
-            <tr>
-                <td>Thor</td>
-                <td>Labrador Retriever</td>
-                <td>7 anos</td>
-                <td>Pedro Lima</td>
-                <td><button>Editar</button></td>
-            </tr>
-            <tr>
-                <td>Luna</td>
-                <td>American Shorthair</td>
-                <td>6 meses</td>
-                <td>Ana Costa</td>
-                <td><button>Editar</button></td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Container da Tabela de Dados -->
         <div class="data-table-container">
-            <table id="tabelaFuncionarios">
-                <!-- A tabela será preenchida aqui pelo JavaScript -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome do Relatório</th>
+                        <th>Data de Geração</th>
+                        <th>Tipo</th>
+                        <th>Gerado Por</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaRelatorios">
+                    <!-- Dados de exemplo -->
+                    <tr>
+                        <td data-label="Nome do Relatório">Relatório Financeiro Mensal</td>
+                        <td data-label="Data de Geração">01/10/2025</td>
+                        <td data-label="Tipo">Financeiro</td>
+                        <td data-label="Gerado Por">Admin</td>
+                        <td data-label="Ação"><button class="edit-button">Ver</button></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Nome do Relatório">Relatório de Atendimentos</td>
+                        <td data-label="Data de Geração">30/09/2025</td>
+                        <td data-label="Tipo">Operacional</td>
+                        <td data-label="Gerado Por">Admin</td>
+                        <td data-label="Ação"><button class="edit-button">Ver</button></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
-
-    <h3>Consultas este mês</h3>
+        <h3 class="chart-title">Consultas este mês</h3>
+        <div class="charts-container">
+            <div class="chart-card">
+                <!-- O gráfico será renderizado aqui -->
+                <canvas id="consultasChart"></canvas>
+            </div>
+        </div>
 
     </main>
-    <script src="Gerente.js"></script>
+    <!-- Biblioteca de Gráficos Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script específico para a página de relatórios -->
+    <script src="Gerenterel.js"></script>
 </body>
 </html>
-
